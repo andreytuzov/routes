@@ -1,0 +1,54 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="ru.railway.dc.routes">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
+    <application
+        android:name=".App"
+        android:allowBackup="true"
+        android:icon="@mipmap/train_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".PrefActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ScheduleActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".FavouriteActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".FavouritePreviewActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".StationActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".RegionActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="ru.railway.dc.routes.regionActivity"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+
+        <!-- Автозагрузка -->
+        <receiver android:name=".BootReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
+
+        <!-- Сервис для работы с уведомлениями -->
+        <service android:name=".EventService"/>
+    </application>
+
+</manifest>

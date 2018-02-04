@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="main_content_height">147dp</dimen>
+
+    <dimen name="sheet_bottom_height">55dp</dimen>
+    <dimen name="sheet_bottom_elevation_on">10dp</dimen>
+    <dimen name="sheet_bottom_elevation_off">3dp</dimen>
+
+    <dimen name="schedule_header_height">60dp</dimen>
+    <dimen name="schedule_item_height">85dp</dimen>
+    <dimen name="schedule_item_half_height">42dp</dimen>
+
+    <dimen name="schedule_item_detail_height">30dp</dimen>
+
+    <dimen name="favourite.group.height">75dp</dimen>
+    <dimen name="favourite.group.half.height">38dp</dimen>
+    <dimen name="favourite.child.height">40dp</dimen>
+
+    <!-- ТЕКСТ -->
+    <dimen name="font.size.micro">8sp</dimen>
+    <dimen name="font.size.small">14sp</dimen>
+    <dimen name="font.size.small.1">15sp</dimen>
+    <dimen name="font.size.middle">16sp</dimen>
+    <dimen name="font.size.normal">18sp</dimen>
+    <dimen name="font.size.large">20sp</dimen>
+
+    <dimen name="spacing_huge">40dp</dimen>
+
+</resources>

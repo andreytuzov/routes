@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?><!-- КАРТОЧКА ВЫБОРА СТАНЦИЯ И ВРЕМЕНИ -->
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    card_view:cardCornerRadius="4dp"
+    card_view:cardElevation="5dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/main_content_height"
+        android:orientation="vertical">
+        <!-- ИЗМЕНЕНИЕ СТАНЦИЙ -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <!-- СТАНЦИЯ ОТПРАВЛЕНИЯ -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/bStation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btn_primary"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical"
+                    android:minHeight="50dp"
+                    android:onClick="onChoiceStation"
+                    android:paddingLeft="10dp"
+                    android:singleLine="true"
+                    android:textColor="@color/primary_text"
+                    android:textSize="@dimen/font.size.normal" />
+
+                <TextView
+                    android:id="@+id/divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/bStation"
+                    android:background="@color/divider"
+                    android:maxHeight="1dp" />
+                <!-- СТАНЦИЯ ПРИБЫТИЯ -->
+                <TextView
+                    android:id="@+id/eStation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/divider"
+                    android:background="@drawable/btn_primary"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical"
+                    android:minHeight="50dp"
+                    android:onClick="onChoiceStation"
+                    android:paddingLeft="10dp"
+                    android:singleLine="true"
+                    android:textColor="@color/primary_text"
+                    android:textSize="@dimen/font.size.normal" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/eStation"
+                    android:background="@color/divider"
+                    android:maxHeight="1dp" />
+            </LinearLayout>
+
+            <!-- КНОПКА ОБМЕНА СТАНЦИЙ -->
+            <ImageView
+                android:id="@+id/swapStation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/btn_accent"
+                android:onClick="onChoiceStation"
+                android:src="@drawable/ic_main_swapstation" />
+        </RelativeLayout>
+
+        <!-- ИЗМЕНЕНИЕ ВРЕМЕНИ -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="1dp"
+            android:orientation="horizontal">
+            <!-- КАЛЕНДАРЬ НАЧАЛЬНОЙ ДАТЫ -->
+            <FrameLayout
+                android:id="@+id/bCalendarDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:layout_marginRight="4dp"
+                android:onClick="onChangeDate">
+
+                <ImageView
+                    android:id="@+id/bCalendar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|top"
+                    android:layout_marginBottom="6dp"
+                    android:layout_marginTop="3dp"
+                    android:src="@android:drawable/ic_menu_today" />
+
+                <TextView
+                    android:id="@+id/bDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|center_horizontal"
+                    android:textColor="@color/secondary_text"
+                    android:textSize="@dimen/font.size.micro" />
+            </FrameLayout>
+            <!-- СЕГОДНЯ -->
+            <TextView
+                android:id="@+id/today"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="8dp"
+                android:onClick="onChangeDate"
+                android:text="Сегодня" />
+            <!-- ЗАВТРА -->
+            <TextView
+                android:id="@+id/tomorrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="8dp"
+                android:onClick="onChangeDate"
+                android:text="Завтра"
+                android:textSize="15sp" />
+
+            <!-- КАЛЕНДАРЬ КОНЕЧНОЙ ДАТЫ -->
+            <FrameLayout
+                android:id="@+id/eCalendarDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:layout_marginRight="6dp"
+                android:onClick="onChangeDate">
+
+                <ImageView
+                    android:id="@+id/eCalendar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|top"
+                    android:layout_marginBottom="6dp"
+                    android:layout_marginTop="3dp"
+                    android:src="@android:drawable/ic_menu_today" />
+
+                <TextView
+                    android:id="@+id/eDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|center_horizontal"
+                    android:textColor="@color/secondary_text"
+                    android:textSize="@dimen/font.size.micro" />
+            </FrameLayout>
+
+            <!-- Search icon -->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/additionalSearch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical|right"
+                    android:layout_marginRight="15dp"
+                    android:onClick="onClickResult"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_additional_search"
+                    android:visibility="invisible" />
+            </FrameLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>
+
+

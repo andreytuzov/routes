@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--<PreferenceCategory-->
+        <!--android:title="Дата">-->
+        <!--<SwitchPreference-->
+            <!--android:key="@string/pref.name.edatetime"-->
+            <!--android:defaultValue="@string/pref.value.edatetime"-->
+            <!--android:title="Количество дней"-->
+            <!--android:summaryOn="Интервал дат"-->
+            <!--android:summaryOff="Один день"-->
+            <!--android:icon="@drawable/ic_preference_countday">-->
+        <!--</SwitchPreference>-->
+    <!--</PreferenceCategory>-->
+
+    <PreferenceCategory
+        android:title="Время">
+        <SwitchPreference
+            android:key="@string/pref.name.actualtime"
+            android:defaultValue="@string/pref.value.actualtime"
+            android:disableDependentsState="true"
+            android:title="Время"
+            android:summaryOn="Авто"
+            android:summaryOff="Ручное"
+            android:icon="@drawable/ic_preference_currenttime">
+        </SwitchPreference>
+        <EditTextPreference
+            android:key="@string/pref.name.btime"
+            android:defaultValue="@string/pref.value.btime"
+            android:dependency="@string/pref.name.actualtime"
+            android:title="Начальное время"
+            android:inputType="time"
+            android:icon="@drawable/ic_preference_btime">
+        </EditTextPreference>
+        <EditTextPreference
+            android:key="@string/pref.name.etime"
+            android:defaultValue="@string/pref.value.etime"
+            android:title="Конечное время"
+            android:inputType="time"
+            android:icon="@drawable/ic_preference_etime">
+        </EditTextPreference>
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="Поиск">
+        <PreferenceScreen
+            android:title="Выбор региона"
+            android:icon="@drawable/ic_preference_region">
+            <intent
+                android:action="ru.railway.dc.routes.regionActivity">
+            </intent>
+        </PreferenceScreen>
+        <EditTextPreference
+            android:key="@string/pref.name.stationtime"
+            android:defaultValue="@string/pref.value.stationtime"
+            android:inputType="numberDecimal"
+            android:title="Время на станции (в мин.)"
+            android:summary="Для промежуточных станций"
+            android:icon="@drawable/ic_preference_stationtime">
+        </EditTextPreference>
+        <Preference
+            android:key="@string/pref.name.clearcash"
+            android:title="Очистка кэша"
+            android:icon="@drawable/ic_preference_clearcash">
+        </Preference>
+        <SwitchPreference
+            android:key="@string/pref.name.edatetime"
+            android:defaultValue="@string/pref.value.edatetime"
+            android:disableDependentsState="true"
+            android:title="Дата"
+            android:summaryOn="Есть"
+            android:summaryOff="Нет"
+            android:icon="@drawable/ic_preference_edatetime">
+        </SwitchPreference>
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="Сохраненные маршруты">
+        <EditTextPreference
+            android:key="@string/pref.name.period"
+            android:defaultValue="@string/pref.value.period"
+            android:inputType="numberDecimal"
+            android:title="Время обновления"
+            android:summary="Указывается в секундах"
+            android:icon="@drawable/ic_preference_period">
+        </EditTextPreference>
+        <Preference
+            android:key="@string/pref.name.clearevent"
+            android:title="Удаление маршрутов"
+            android:icon="@drawable/ic_preference_removeroutes">
+        </Preference>
+    </PreferenceCategory>
+</PreferenceScreen>

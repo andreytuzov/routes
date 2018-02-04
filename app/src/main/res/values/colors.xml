@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- ПАЛИТРА ПРИЛОЖЕНИЯ -->
+    <color name="primary">#03A9F4</color>
+    <color name="primary_dark">#0288D1</color>
+    <color name="primary_light">#B3E5FC</color>
+    <color name="accent">#FF4081</color>
+    <color name="primary_text">#212121</color>
+    <color name="secondary_text">#757575</color>
+    <color name="icons">#FFFFFF</color>
+    <color name="divider">#BDBDBD</color>
+
+    <!--<color name="primary">#FFEB3B</color>-->
+    <!--<color name="primary_dark">#FBC02D</color>-->
+    <!--<color name="primary_light">#FFF9C4</color>-->
+    <!--<color name="accent">#00BCD4</color>-->
+    <!--<color name="primary_text">#212121</color>-->
+    <!--<color name="secondary_text">#757575</color>-->
+    <!--<color name="icons">#212121</color>-->
+    <!--<color name="divider">#BDBDBD</color>-->
+
+    <!--<color name="primary">#009688</color>-->
+    <!--<color name="primary_dark">#00796B</color>-->
+    <!--<color name="primary_light">#B2DFDB</color>-->
+    <!--<color name="accent">#CDDC39</color>-->
+    <!--<color name="primary_text">#212121</color>-->
+    <!--<color name="secondary_text">#757575</color>-->
+    <!--<color name="icons">#FFFFFF</color>-->
+    <!--<color name="divider">#BDBDBD</color>-->
+
+
+    <color name="lightTransparent">#99FFFFFF</color>
+    <color name="light">#FFFFFF</color>
+    <color name="dark">#000000</color>
+
+</resources>

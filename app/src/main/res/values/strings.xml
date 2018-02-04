@@ -1,0 +1,50 @@
+<resources>
+
+    <string name="app_name">Диспетчер маршрутов</string>
+
+    <!-- НАСТРОЙКИ ЗНАЧЕНИЙ ПО УМОЛЧАНИЮ -->
+
+    <string name="search_placeholder_bString">Станция отправления</string>
+    <string name="search_placeholder_eString">Станция прибытия</string>
+    <string name="search_value_bdate">current</string>
+    <string name="search_value_edate">current</string>
+
+    <!-- НАСТРОЙКИ ПРИЛОЖЕНИЯ -->
+
+    <!-- ДАТА -->
+    <string name="pref.name.edatetime">eDateTime</string>
+    <string name="pref.value.edatetime">false</string>
+
+    <!-- ВРЕМЯ -->
+    <string name="pref.name.actualtime">actualTime</string>
+    <string name="pref.value.actualtime">true</string>
+
+    <string name="pref.name.btime">bTime</string>
+    <string name="pref.value.btime">00:00</string>
+
+    <string name="pref.name.etime">eTime</string>
+    <string name="pref.value.etime">23:59</string>
+
+    <!-- ПОИСК -->
+    <string name="pref.name.stationtime">stationTime</string>
+    <string name="pref.value.stationtime">30</string>
+
+    <string name="pref.name.clearcash">clearCash</string>
+
+    <!-- СОХРАНЕННЫЕ МАРШРУТЫ -->
+    <string name="pref.name.period">period</string>
+    <string name="pref.value.period">10</string>
+
+    <string name="pref.name.clearevent">clearEvent</string>
+
+    <string name="tooltip_main_content_statusbar">Потяните вверх, чтобы выбрать промежуточные станции</string>
+    <string name="tooltip_main_bottom_sheet_on_fabAdd">Для выбора станции нажмите на кнопку</string>
+    <string name="tooltip_main_content_bstation">Выбор станции отправления</string>
+    <string name="tooltip_main_content_estation">Выбор станции прибытия</string>
+    <string name="tooltip_main_content_bcalendar">Выбор необходимой даты</string>
+    <string name="tooltip_main_content_search">Начала поиска маршрута</string>
+    <string name="tooltip_station_search">Нажмите для поиска станции</string>
+    <string name="tooltip_station_item_favourite">Нажмите, чтобы добавить станцию в избранное</string>
+    <string name="main_bottom_sheet_on_item_time">Нажмите, для изменения минимального времени нахождения на станции</string>
+
+</resources>
