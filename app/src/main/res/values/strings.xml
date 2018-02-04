@@ -38,13 +38,13 @@
     <string name="pref.name.clearevent">clearEvent</string>
 
     <string name="tooltip_main_content_statusbar">Потяните вверх, чтобы выбрать промежуточные станции</string>
-    <string name="tooltip_main_bottom_sheet_on_fabAdd">Для выбора станции нажмите на кнопку</string>
+    <string name="tooltip_main_bottom_sheet_on_fabAdd">Добавление промежуточной станции</string>
     <string name="tooltip_main_content_bstation">Выбор станции отправления</string>
     <string name="tooltip_main_content_estation">Выбор станции прибытия</string>
     <string name="tooltip_main_content_bcalendar">Выбор необходимой даты</string>
     <string name="tooltip_main_content_search">Начала поиска маршрута</string>
     <string name="tooltip_station_search">Нажмите для поиска станции</string>
-    <string name="tooltip_station_item_favourite">Нажмите, чтобы добавить станцию в избранное</string>
+    <string name="tooltip_station_item_favourite">Добавление станции в избранное</string>
     <string name="main_bottom_sheet_on_item_time">Нажмите, для изменения минимального времени нахождения на станции</string>
 
 </resources>
