@@ -16,6 +16,10 @@
     <dimen name="favourite.group.half.height">38dp</dimen>
     <dimen name="favourite.child.height">40dp</dimen>
 
+    <dimen name="bottom_sheet_header_shadow_size">3dp</dimen>
+    <dimen name="station_item_shadow_size">1dp</dimen>
+    <dimen name="station_item_margin">0dp</dimen>
+
     <!-- ТЕКСТ -->
     <dimen name="font.size.micro">8sp</dimen>
     <dimen name="font.size.small">14sp</dimen>

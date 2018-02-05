@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/sheet_bottom_height"
         app:cardCornerRadius="5dp"
-        app:cardElevation="10dp">
+        app:cardElevation="@dimen/bottom_sheet_header_shadow_size">
 
         <FrameLayout
             android:layout_width="match_parent"

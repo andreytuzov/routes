@@ -43,7 +43,7 @@
 
                 <ImageView
                     android:id="@+id/imgArrow"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginLeft="8dp"
                     android:layout_width="15dp"
                     android:layout_height="15dp"
                     android:layout_gravity="center_vertical|left"
