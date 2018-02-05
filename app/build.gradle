@@ -16,10 +16,10 @@ android {
     }
     signingConfigs {
         release {
-            storeFile file("../scripts.keyRoutesApk.jks")
-            storePassword "123qwertyroutes"
-            keyAlias "712345"
-            keyPassword "123qwertyroutes"
+            storeFile file("../scripts/keyRoutesApk.jks")
+            storePassword "123456qwertyroutes"
+            keyAlias "123456"
+            keyPassword "123456qwertyroutes"
         }
     }
     buildTypes {
