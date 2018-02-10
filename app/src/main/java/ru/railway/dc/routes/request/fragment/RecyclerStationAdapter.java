@@ -17,10 +17,6 @@ import ru.railway.dc.routes.R;
 import ru.railway.dc.routes.request.model.Station;
 import ru.railway.dc.routes.utils.TooltipManager;
 
-/**
- * Created by SQL on 27.01.2017.
- */
-
 public class RecyclerStationAdapter
         extends RecyclerView.Adapter<RecyclerStationAdapter.ViewHolder> {
 
@@ -36,6 +32,7 @@ public class RecyclerStationAdapter
 
     private List<Station> stations;
     private Map<Station, Integer> mapDuration;
+    private boolean isFirst = true;
 
     public RecyclerStationAdapter(Map<Station, Integer> map, OnItemClickListener listener) {
         this.mapDuration = map;
@@ -48,12 +45,16 @@ public class RecyclerStationAdapter
 
     }
 
+    public void resetTooltips() {
+        isFirst = true;
+    }
+
     public Integer getTime(int position) {
         Station station = stations.get(position);
         return mapDuration.get(station);
     }
 
-    public void changeStationTime(int position, int stationTime)  {
+    public void changeStationTime(int position, int stationTime) {
         Station station = stations.get(position);
         mapDuration.put(station, stationTime);
         notifyDataSetChanged();
@@ -100,10 +101,14 @@ public class RecyclerStationAdapter
                 listener.onItemClick(position);
             }
         });
-        TooltipManager tooltipManager = App.Companion.getTooltipManager();
-        tooltipManager.addToolTip(holder.tvDuration, R.string.main_bottom_sheet_on_item_time, Tooltip.Gravity.BOTTOM,
-                TooltipManager.MAIN_BOTTOM_SHEET_ON_ITEM_TIME_GROUP, false, null);
-
+        if (isFirst) {
+            TooltipManager tooltipManager = App.Companion.getTooltipManager();
+            tooltipManager.addToolTip(holder.tvDuration, R.string.main_bottom_sheet_on_item_time, Tooltip.Gravity.BOTTOM,
+                    TooltipManager.MAIN_BOTTOM_SHEET_ON_ITEM_GROUP, false, null);
+            tooltipManager.addToolTip(holder.tvDuration, R.string.main_bottom_sheet_on_item_time, Tooltip.Gravity.BOTTOM,
+                    TooltipManager.MAIN_BOTTOM_SHEET_ON_ITEM_LISTENER_GROUP, false, null);
+            isFirst = false;
+        }
         holder.tvDuration.setText(String.valueOf(duration));
         holder.tvRegion.setText(station.getRegion());
     }

@@ -14,6 +14,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -39,14 +41,10 @@ import ru.railway.dc.routes.event.notification.NotificationTime;
 import ru.railway.dc.routes.request.data.FillRequestData;
 import ru.railway.dc.routes.request.data.RequestData;
 import ru.railway.dc.routes.request.data.RequestDataSingleton;
+import ru.railway.dc.routes.request.fragment.StationFragment;
 import ru.railway.dc.routes.request.fragment.dialog.DateFragment;
 import ru.railway.dc.routes.request.model.Station;
-import ru.railway.dc.routes.setting.MyPreferenceFragment;
 import ru.railway.dc.routes.utils.TooltipManager;
-
-/**
- * Created by SQL on 16.11.2016.
- */
 
 public class MainActivity extends AppCompatActivity implements RequestDataSingleton.OnChangeDataListener {
 
@@ -65,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements RequestDataSingle
     private boolean isEDateTime;
     private ImageView imgArrow;
     private ImageView additionalSearch;
+    private boolean isBottomSheetExpanded = false;
 
     // =========================== ОБЪЯВЛЕНИЕ И ИНИЦИАЛИЗАЦИЯ ФРАГМЕНТОВ ===========================
 
@@ -184,9 +183,24 @@ public class MainActivity extends AppCompatActivity implements RequestDataSingle
 
         // Обновляем все данные
         RequestDataSingleton.getInstance().updateData();
-        prepareToolTip();
+        prepareToolTip(true);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_main, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_help:
+                prepareToolTip(false);
+                return false;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     protected void onResume() {
@@ -200,7 +214,6 @@ public class MainActivity extends AppCompatActivity implements RequestDataSingle
         } else {
             holder.eCalendarDate.setVisibility(View.INVISIBLE);
         }
-        App.Companion.getTooltipManager().show(TooltipManager.MAIN_CONTENT_GROUP);
     }
 
     private void initBottomSheet(View bottomSheet, final FloatingActionButton fab,
@@ -228,13 +241,18 @@ public class MainActivity extends AppCompatActivity implements RequestDataSingle
                         cardView.setElevation(getResources()
                                 .getDimensionPixelSize(R.dimen.sheet_bottom_elevation_on));
                     }
+                    isBottomSheetExpanded = false;
                 } else if (newState == BottomSheetBehavior.STATE_EXPANDED) {
                     additionalSearch.setVisibility(View.VISIBLE);
                     additionalSearch.animate().alpha(1F).setDuration(300).start();
                     fab.setVisibility(View.INVISIBLE);
                     fabAdd.animate().scaleX(1).scaleY(1).setDuration(300).start();
 
-                    App.Companion.getTooltipManager().show(TooltipManager.MAIN_BOTTOM_SHEET_ON_GROUP);
+                    isBottomSheetExpanded = true;
+                    TooltipManager tooltipManager = App.Companion.getTooltipManager();
+                    tooltipManager.setContext(TooltipManager.MAIN_BOTTOM_SHEET_ON_ITEM_LISTENER_GROUP, MainActivity.this);
+                    tooltipManager.show(TooltipManager.MAIN_BOTTOM_SHEET_ON_LISTENER_GROUP,
+                            TooltipManager.MAIN_BOTTOM_SHEET_ON_ITEM_LISTENER_GROUP);
                 }
             }
 
@@ -258,17 +276,34 @@ public class MainActivity extends AppCompatActivity implements RequestDataSingle
     // ================================ TOOLTIP ====================================================
 
 
-    private void prepareToolTip() {
+    private void prepareToolTip(boolean isFirst) {
         TooltipManager tooltipManager = App.Companion.getTooltipManager();
 
+        if (!isFirst)
+            tooltipManager.resetGroup(TooltipManager.MAIN_GROUP);
         tooltipManager.addToolTip(findViewById(R.id.bStation), R.string.tooltip_main_content_bstation, Tooltip.Gravity.BOTTOM,
-                TooltipManager.MAIN_CONTENT_GROUP, true, this);
+                TooltipManager.MAIN_GROUP, true, this);
         tooltipManager.addToolTip(findViewById(R.id.eStation), R.string.tooltip_main_content_estation, Tooltip.Gravity.BOTTOM,
-                TooltipManager.MAIN_CONTENT_GROUP, true, this);
+                TooltipManager.MAIN_GROUP, true, this);
         tooltipManager.addToolTip(findViewById(R.id.bCalendarDate), R.string.tooltip_main_content_bcalendar, Tooltip.Gravity.BOTTOM,
-                TooltipManager.MAIN_CONTENT_GROUP, true, this);
-        tooltipManager.addToolTip(findViewById(R.id.fab), R.string.tooltip_main_content_search, Tooltip.Gravity.LEFT,
-                TooltipManager.MAIN_CONTENT_GROUP, true, this);
+                TooltipManager.MAIN_GROUP, true, this);
+        tooltipManager.show(TooltipManager.MAIN_GROUP);
+
+        if (!isBottomSheetExpanded) {
+            if (!isFirst) {
+                tooltipManager.resetGroup(TooltipManager.MAIN_BOTTOM_SHEET_OFF_GROUP,
+                        TooltipManager.MAIN_BOTTOM_SHEET_ON_LISTENER_GROUP,
+                        TooltipManager.MAIN_BOTTOM_SHEET_ON_ITEM_LISTENER_GROUP);
+            }
+            tooltipManager.addToolTip(findViewById(R.id.fab), R.string.tooltip_main_content_search, Tooltip.Gravity.LEFT,
+                    TooltipManager.MAIN_BOTTOM_SHEET_OFF_GROUP, true, this);
+        } else {
+            if (!isFirst)
+                tooltipManager.resetGroup(TooltipManager.MAIN_BOTTOM_SHEET_ON_GROUP,
+                        TooltipManager.MAIN_BOTTOM_SHEET_ON_ITEM_GROUP);
+            tooltipManager.addToolTip(findViewById(R.id.additionalSearch), R.string.tooltip_main_content_search, Tooltip.Gravity.LEFT,
+                    TooltipManager.MAIN_BOTTOM_SHEET_ON_GROUP, true, this);
+        }
     }
 
 

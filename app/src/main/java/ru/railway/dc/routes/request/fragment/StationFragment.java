@@ -12,6 +12,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -59,13 +60,43 @@ public class StationFragment extends BottomSheetDialogFragment
         return v;
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_help:
+                prepareToolTips();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     private void prepareToolTips() {
         TooltipManager tooltipManager = App.Companion.getTooltipManager();
 
         tooltipManager.addToolTip(tvInfo, R.string.tooltip_main_content_statusbar, Tooltip.Gravity.TOP,
-                TooltipManager.MAIN_CONTENT_GROUP, false, getActivity());
+                TooltipManager.MAIN_BOTTOM_SHEET_OFF_GROUP, false, getActivity());
+
+        // Adding tip for add button
         tooltipManager.addToolTip(fabAdd, R.string.tooltip_main_bottom_sheet_on_fabAdd, Tooltip.Gravity.TOP,
                 TooltipManager.MAIN_BOTTOM_SHEET_ON_GROUP, false, getActivity());
+        tooltipManager.addToolTip(fabAdd, R.string.tooltip_main_bottom_sheet_on_fabAdd, Tooltip.Gravity.TOP,
+                TooltipManager.MAIN_BOTTOM_SHEET_ON_LISTENER_GROUP, false, getActivity());
+
+        tooltipManager.show(TooltipManager.MAIN_BOTTOM_SHEET_ON_GROUP,
+                TooltipManager.MAIN_BOTTOM_SHEET_OFF_GROUP);
+
+        if (adapter.getItemCount() != 0) {
+            adapter.resetTooltips();
+            adapter.notifyDataSetChanged();
+            tooltipManager.setContext(TooltipManager.MAIN_BOTTOM_SHEET_ON_ITEM_GROUP, getActivity());
+            tooltipManager.show(TooltipManager.MAIN_BOTTOM_SHEET_ON_ITEM_GROUP);
+        }
     }
 
     private void prepareRvMain() {
@@ -134,8 +165,8 @@ public class StationFragment extends BottomSheetDialogFragment
 
         if (!map.isEmpty()) {
             TooltipManager tooltipManager = App.Companion.getTooltipManager();
-            tooltipManager.setContext(TooltipManager.MAIN_BOTTOM_SHEET_ON_ITEM_TIME_GROUP, getActivity());
-            tooltipManager.show(TooltipManager.MAIN_BOTTOM_SHEET_ON_ITEM_TIME_GROUP);
+            tooltipManager.setContext(TooltipManager.MAIN_BOTTOM_SHEET_ON_ITEM_GROUP, getActivity());
+            tooltipManager.show(TooltipManager.MAIN_BOTTOM_SHEET_ON_ITEM_GROUP);
         }
         adapter = new RecyclerStationAdapter(map, onItemClickListener);
 

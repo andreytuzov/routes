@@ -37,7 +37,7 @@ import ru.railway.dc.routes.utils.TooltipManager;
  */
 
 public class StationActivity extends AppCompatActivity
-    implements LoaderManager.LoaderCallbacks<Cursor>,
+        implements LoaderManager.LoaderCallbacks<Cursor>,
         AdapterView.OnItemClickListener {
 
     private static final int STATION_LOADER_ID = 1;
@@ -53,6 +53,7 @@ public class StationActivity extends AppCompatActivity
 
     private SimpleCursorAdapter adapter;
     private boolean isItemFirst = true;
+    private boolean isSearchExpanded = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -76,8 +77,24 @@ public class StationActivity extends AppCompatActivity
         loader.forceLoad();
     }
 
-    private void prepareTooltip() {
+    private void prepareTooltip(boolean isFirst) {
+        TooltipManager tooltipManager = App.Companion.getTooltipManager();
+        if (!isSearchExpanded) {
+            if (!isFirst)
+                tooltipManager.resetGroup(TooltipManager.STATION_GROUP);
+            Point p = new Point(RUtils.INSTANCE.getScreenWidth(getWindowManager())
+                    - (int) RUtils.INSTANCE.convertDpToPixels(72, this),
+                    RUtils.INSTANCE.getDimenFromAttr(android.R.attr.actionBarSize, this) / 2
+                            + RUtils.INSTANCE.getDimenFromRes("status_bar_height", this));
+            tooltipManager.addToolTip(p, R.string.tooltip_station_search, Tooltip.Gravity.BOTTOM,
+                    TooltipManager.STATION_GROUP, false, this);
 
+            tooltipManager.show(TooltipManager.STATION_GROUP);
+        }
+        if (!isFirst)
+            tooltipManager.resetGroup(TooltipManager.STATION_ITEM_GROUP);
+        isItemFirst = true;
+        adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -91,9 +108,16 @@ public class StationActivity extends AppCompatActivity
 
         final MenuItem actionSearchItem = menu.findItem(R.id.action_search);
         SearchView searchView = (SearchView) actionSearchItem.getActionView();
+        searchView.setOnSearchClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                isSearchExpanded = true;
+            }
+        });
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+                isSearchExpanded = false;
                 actionSearchItem.collapseActionView();
                 return true;
             }
@@ -106,16 +130,7 @@ public class StationActivity extends AppCompatActivity
             }
         });
 
-        TooltipManager tooltipManager = App.Companion.getTooltipManager();
-
-        Point p = new Point(RUtils.INSTANCE.getScreenWidth(getWindowManager()),
-                RUtils.INSTANCE.getDimenFromAttr(android.R.attr.actionBarSize, this) / 2
-                        + RUtils.INSTANCE.getDimenFromRes("status_bar_height", this));
-        tooltipManager.addToolTip(p, R.string.tooltip_station_search, Tooltip.Gravity.BOTTOM,
-                TooltipManager.STATION_GROUP, false, this);
-
-
-        tooltipManager.show(TooltipManager.STATION_GROUP);
+        prepareTooltip(true);
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -199,8 +214,13 @@ public class StationActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            finish();
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+            case R.id.action_help:
+                prepareTooltip(false);
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -224,6 +244,7 @@ public class StationActivity extends AppCompatActivity
 
     @Override
     protected void onDestroy() {
+        App.Companion.getTooltipManager().close(this);
         super.onDestroy();
         db.close();
     }

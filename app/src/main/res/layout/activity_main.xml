@@ -32,6 +32,7 @@
             android:layout_height="match_parent">
 
             <fragment
+                android:id="@+id/stationFragment"
                 android:name="ru.railway.dc.routes.request.fragment.StationFragment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />

@@ -46,5 +46,6 @@
     <string name="tooltip_station_search">Нажмите для поиска станции</string>
     <string name="tooltip_station_item_favourite">Добавление станции в избранное</string>
     <string name="main_bottom_sheet_on_item_time">Нажмите, для изменения минимального времени нахождения на станции</string>
+    <string name="help">Помощь</string>
 
 </resources>

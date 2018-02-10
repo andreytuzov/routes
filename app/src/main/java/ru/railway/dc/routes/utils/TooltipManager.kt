@@ -9,15 +9,16 @@ import ru.railway.dc.routes.App
 import ru.railway.dc.routes.R
 import java.util.*
 
-class TooltipManager {
+class TooltipManager() {
 
     private var mState: Int
     private var mLoadState: Int
     private val mToolTipGroupMap = mutableMapOf<Int, ToolTipGroup>()
     private val mShowQueue = LinkedList<ToolTipGroup>()
     private var mIsShowing = false
+    private var mCurrentGroup = UNKNOWN_GROUP
 
-    constructor() {
+    init {
         mLoadState = if (App.pref.contains(PREF_TOOLTIP_STATE))
             App.pref.getInt(PREF_TOOLTIP_STATE, 0)
         else
@@ -28,13 +29,15 @@ class TooltipManager {
     private val listener = object : ToolTipGroup.OnToolTipGroupHiddenListener {
         override fun onGroupHide(groupId: Int) {
             // Set flag in preference, that tooltips were shown
-            resetGroup(groupId)
+            removeGroup(groupId)
             // Show next tooltip
             val nextToolTipGroup = mShowQueue.poll()
             if (nextToolTipGroup != null) {
+                mCurrentGroup = nextToolTipGroup.groupId
                 nextToolTipGroup.show(this)
             } else {
                 mIsShowing = false
+                mCurrentGroup = UNKNOWN_GROUP
             }
 
         }
@@ -45,12 +48,13 @@ class TooltipManager {
     }
 
     fun show(groupId: Int) {
-        if (!mToolTipGroupMap.containsKey(groupId)) {
+        if (!mToolTipGroupMap.containsKey(groupId) || groupId == mCurrentGroup) {
             return
         }
         if (isGroupShow(groupId)) {
             if (!mIsShowing) {
-                Handler().postDelayed(Runnable {
+                mCurrentGroup = groupId
+                Handler().postDelayed({
                     mToolTipGroupMap[groupId]!!.show(listener)
                 }, 300)
                 mIsShowing = true
@@ -61,34 +65,66 @@ class TooltipManager {
     }
 
     fun addToolTip(view: View, textId: Int, gravity: Tooltip.Gravity, groupId: Int, consume: Boolean = false, c: Context? = null) {
-        val toolTipGroup = getToolTipGroup(groupId, c)
-        toolTipGroup.add(ToolTip(view, textId, gravity, consume))
+        if (isGroupShow(groupId)) {
+            val toolTipGroup = getToolTipGroup(groupId, c)
+            toolTipGroup.add(ToolTip(view, textId, gravity, consume))
+        }
     }
 
     fun addToolTip(point: Point, textId: Int, gravity: Tooltip.Gravity, groupId: Int, consume: Boolean = false, c: Context? = null) {
-        val toolTipGroup = getToolTipGroup(groupId, c)
-        toolTipGroup.add(ToolTip(point, textId, gravity, consume))
+        if (isGroupShow(groupId)) {
+            val toolTipGroup = getToolTipGroup(groupId, c)
+            toolTipGroup.add(ToolTip(point, textId, gravity, consume))
+        }
     }
 
     fun addToolTip(toolTipList: List<ToolTip>, groupId: Int, c: Context? = null) {
-        val toolTipGroup = getToolTipGroup(groupId, c)
-        toolTipList.forEach { toolTipGroup.add(it) }
+        if (isGroupShow(groupId)) {
+            val toolTipGroup = getToolTipGroup(groupId, c)
+            toolTipList.forEach { toolTipGroup.add(it) }
+        }
     }
 
     fun setContext(groupId: Int, c: Context) {
         getToolTipGroup(groupId, null).setContext(c)
     }
 
-    private fun resetGroup(groupId: Int) {
+    fun resetGroup(vararg groupIdList: Int) {
+        groupIdList.forEach { mState = mState or (1 shl it) }
+    }
+
+    fun close(context: Context) {
+        val removeList = mutableListOf<Int>()
+        for (key in mToolTipGroupMap.keys) {
+            val value = mToolTipGroupMap[key]
+            if (value != null && value.isContext(context)) {
+                removeList.add(key)
+            }
+        }
+        removeList.forEach {
+            mToolTipGroupMap[it]?.setContext(null)
+            mToolTipGroupMap.remove(it)
+            // If the tip was shown, that reset flag for this tip
+            val temp = (1 shl it)
+            if (mLoadState and temp == 0)
+                mState = mState and temp.inv()
+        }
+    }
+
+    private fun removeGroup(groupId: Int) {
+        // If tooltip for specified group has not been shown
+        if (mToolTipGroupMap[groupId] == null || mToolTipGroupMap[groupId]!!.isContext(null))
+            return
         mToolTipGroupMap.remove(groupId)
         val temp = (1 shl groupId).inv()
         mState = mState and temp
         // Save new value in preference
         val state = mLoadState and temp
         if (mLoadState != state) {
-            App.pref.edit().putInt(PREF_TOOLTIP_STATE, state).commit()
+            App.pref.edit().putInt(PREF_TOOLTIP_STATE, state).apply()
             mLoadState = state
         }
+        mCurrentGroup = UNKNOWN_GROUP
     }
 
     private fun isGroupShow(groupId: Int) = groupId in 0..31
@@ -112,11 +148,13 @@ class TooltipManager {
             fun onGroupHide(groupId: Int)
         }
 
-        fun setContext(c: Context) {
+        fun setContext(c: Context?) {
             if (!isShowing && this.c == null) {
                 this.c = c
             }
         }
+
+        fun isContext(c: Context?) = this.c === c
 
         fun add(toolTip: ToolTip) {
             if (!toolTipList.contains(toolTip) && !isShowing) {
@@ -131,7 +169,7 @@ class TooltipManager {
                 toolTipList[0].show(c!!, object : ToolTip.OnToolTipHiddenListener {
                     override fun onHide() {
                         i++
-                        if (i < toolTipList.size)
+                        if (c != null && i < toolTipList.size)
                             toolTipList[i].show(c!!, this)
                         else
                             listener.onGroupHide(groupId)
@@ -181,7 +219,7 @@ class TooltipManager {
             val builder = Tooltip.Builder(101)
                     .closePolicy(Tooltip.ClosePolicy()
                             .insidePolicy(true, consume)
-                            .outsidePolicy(true, consume), 0)
+                            .outsidePolicy(true, consume), 3000)
                     .text(c.resources, textId)
                     .withArrow(true)
                     .withOverlay(true)
@@ -246,13 +284,19 @@ class TooltipManager {
     companion object {
         const val PREF_TOOLTIP_STATE = "tooltip_state"
 
-        const val MAIN_CONTENT_GROUP = 0
-        const val MAIN_ADD_CONTENT_GROUP = 1
-        const val MAIN_BOTTOM_SHEET_ON_GROUP = 2
-        const val MAIN_SLIDEMENU_ON_GROUP = 3
-        const val STATION_GROUP = 4
-        const val STATION_ITEM_GROUP = 5
-        const val MAIN_BOTTOM_SHEET_ON_ITEM_TIME_GROUP = 6
+        private const val UNKNOWN_GROUP = -1
+
+        const val MAIN_GROUP = 0
+        const val MAIN_BOTTOM_SHEET_ON_GROUP = 1
+        const val MAIN_BOTTOM_SHEET_ON_ITEM_GROUP = 2
+        const val MAIN_BOTTOM_SHEET_ON_ITEM_LISTENER_GROUP = 3
+        const val MAIN_BOTTOM_SHEET_OFF_GROUP = 4
+        const val MAIN_SLIDEMENU_ON = 5
+        const val MAIN_BOTTOM_SHEET_ON_LISTENER_GROUP = 6
+
+        const val STATION_GROUP = 7
+        const val STATION_ITEM_GROUP = 8
+
 
     }
 
