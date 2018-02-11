@@ -2,6 +2,7 @@ package ru.railway.dc.routes.event.activity;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -37,7 +38,6 @@ public class RecyclerItemViewHelper {
     public View getView(ListRoute listRoute, EventTableUtils.EventID eventID) {
         LinearLayout layout = new LinearLayout(context);
         layout.setOrientation(LinearLayout.VERTICAL);
-        layout.setPadding(10, 10, 10, 10);
 
         // 3 - Событие завершилось
         // 4 - Событие не началось

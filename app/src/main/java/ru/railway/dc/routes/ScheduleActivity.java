@@ -75,7 +75,7 @@ public class ScheduleActivity extends AppCompatActivity implements LoaderManager
         }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("Поиск маршрута");
+        toolbar.setTitle(R.string.search_title);
         if (toolbar != null) {
             setSupportActionBar(toolbar);
         }
@@ -123,7 +123,7 @@ public class ScheduleActivity extends AppCompatActivity implements LoaderManager
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.activity_schedule, menu);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        return super.onCreateOptionsMenu(menu);
+        return true;
     }
 
     @Override
@@ -156,8 +156,9 @@ public class ScheduleActivity extends AppCompatActivity implements LoaderManager
         }
         if (typeSortEnum != null) {
             adapter.sort(typeSortEnum);
+            return true;
         }
-        return super.onOptionsItemSelected(item);
+        return false;
     }
 
     // Формат вывода подзаголовка

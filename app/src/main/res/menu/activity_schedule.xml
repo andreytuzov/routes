@@ -1,39 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/itemSort"
-        android:title="Сортировка"
         android:icon="@android:drawable/ic_menu_sort_by_size"
-        app:showAsAction="always"
-        >
+        android:title="@string/sort_title"
+        app:showAsAction="ifRoom">
         <menu>
-            <item
-                android:id="@+id/itemSortDepartureTime"
-                android:title="Время отправления"
-                app:showAsAction="collapseActionView"
-                />
-            <item
-                android:id="@+id/itemSortArrivalTime"
-                android:title="Время прибытия"
-                app:showAsAction="collapseActionView"
-                />
-            <item
-                android:id="@+id/itemSortTotalTime"
-                android:title="Общее время"
-                app:showAsAction="collapseActionView"
-                />
-            <item
-                android:id="@+id/itemSortStationTime"
-                android:title="Время на станциях"
-                app:showAsAction="collapseActionView"
-                />
-            <item
-                android:id="@+id/itemSortTrainTime"
-                android:title="Время в пути"
-                app:showAsAction="never"
-                />
+            <group>
+                <item
+                    android:id="@+id/itemSortDepartureTime"
+                    android:icon="@null"
+                    android:title="@string/sort_departure_time" />
+                <item
+                    android:id="@+id/itemSortArrivalTime"
+                    android:icon="@null"
+                    android:title="@string/sort_arrival_time" />
+                <item
+                    android:id="@+id/itemSortTotalTime"
+                    android:icon="@null"
+                    android:title="@string/sort_total_time" />
+                <item
+                    android:id="@+id/itemSortStationTime"
+                    android:icon="@null"
+                    android:title="@string/sort_station_time" />
+                <item
+                    android:id="@+id/itemSortTrainTime"
+                    android:icon="@null"
+                    android:title="@string/sort_travel_time" />
+            </group>
         </menu>
     </item>
 </menu>

@@ -16,14 +16,14 @@
     <string name="pref.value.edatetime">false</string>
 
     <!-- ВРЕМЯ -->
-    <string name="pref.name.actualtime">actualTime</string>
-    <string name="pref.value.actualtime">true</string>
+    <string name="pref_name_actualtime">actualTime</string>
+    <string name="pref_value_actualtime">false</string>
 
-    <string name="pref.name.btime">bTime</string>
-    <string name="pref.value.btime">00:00</string>
+    <string name="pref_name_btime">bTime</string>
+    <string name="pref_value_btime">07:30</string>
 
     <string name="pref.name.etime">eTime</string>
-    <string name="pref.value.etime">23:59</string>
+    <string name="pref.value.etime">20:30</string>
 
     <!-- ПОИСК -->
     <string name="pref.name.stationtime">stationTime</string>
@@ -32,8 +32,8 @@
     <string name="pref.name.clearcash">clearCash</string>
 
     <!-- СОХРАНЕННЫЕ МАРШРУТЫ -->
-    <string name="pref.name.period">period</string>
-    <string name="pref.value.period">10</string>
+    <string name="pref_name_period">period</string>
+    <string name="pref_value_period">60</string>
 
     <string name="pref.name.clearevent">clearEvent</string>
 
@@ -47,5 +47,13 @@
     <string name="tooltip_station_item_favourite">Добавление станции в избранное</string>
     <string name="main_bottom_sheet_on_item_time">Нажмите, для изменения минимального времени нахождения на станции</string>
     <string name="help">Помощь</string>
+    <string name="sort_departure_time">Время отправления </string>
+    <string name="sort_arrival_time">Время прибытия </string>
+    <string name="sort_total_time">Общее время </string>
+    <string name="sort_station_time">Время на станциях </string>
+    <string name="sort_travel_time">Время в пути </string>
+    <string name="sort_title">Сортировка</string>
+    <string name="search_title">Поиск маршрута</string>
+    <string name="route_title">Маршрут</string>
 
 </resources>

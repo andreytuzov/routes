@@ -103,10 +103,12 @@ public class RecyclerStationAdapter
         });
         if (isFirst) {
             TooltipManager tooltipManager = App.Companion.getTooltipManager();
+            tooltipManager.clearGroup(TooltipManager.MAIN_BOTTOM_SHEET_ON_ITEM_GROUP,
+                    TooltipManager.MAIN_BOTTOM_SHEET_ON_ITEM_LISTENER_GROUP);
             tooltipManager.addToolTip(holder.tvDuration, R.string.main_bottom_sheet_on_item_time, Tooltip.Gravity.BOTTOM,
-                    TooltipManager.MAIN_BOTTOM_SHEET_ON_ITEM_GROUP, false, null);
+                    TooltipManager.MAIN_BOTTOM_SHEET_ON_ITEM_GROUP, true, null);
             tooltipManager.addToolTip(holder.tvDuration, R.string.main_bottom_sheet_on_item_time, Tooltip.Gravity.BOTTOM,
-                    TooltipManager.MAIN_BOTTOM_SHEET_ON_ITEM_LISTENER_GROUP, false, null);
+                    TooltipManager.MAIN_BOTTOM_SHEET_ON_ITEM_LISTENER_GROUP, true, null);
             isFirst = false;
         }
         holder.tvDuration.setText(String.valueOf(duration));

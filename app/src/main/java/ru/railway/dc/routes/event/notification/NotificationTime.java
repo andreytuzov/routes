@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 
 import ru.railway.dc.routes.FavouriteActivity;
 import ru.railway.dc.routes.database.utils.EventTableUtils;
@@ -55,6 +56,7 @@ public class NotificationTime implements ITime {
     public boolean update(long code) {
         // Добавляем заголовки
         Notification.Builder builder = new Notification.Builder(context);
+        builder.setContentIntent(pendingIntent);
         // Добавляем эффекты
         if (msg.addMessage(code, builder)) {
             builder.setSmallIcon(android.R.drawable.ic_menu_delete);
@@ -63,8 +65,10 @@ public class NotificationTime implements ITime {
             EventTableUtils.update(eventID, false, null);
             return true;
         }
-        builder.setContentIntent(pendingIntent);
 //        builder.addAction(action);
+        if (Build.VERSION.SDK_INT >= 17)
+            builder.setShowWhen(false);
+        builder.setOngoing(true);
         nm.notify(eventID, builder.build());
         return false;
     }

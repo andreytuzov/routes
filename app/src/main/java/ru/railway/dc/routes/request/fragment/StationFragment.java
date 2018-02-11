@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Point;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialogFragment;
@@ -41,7 +42,8 @@ public class StationFragment extends BottomSheetDialogFragment
     private TextView tvInfo;
     private View fabAdd;
 
-    private final int RV_MAIN_INDENT = 10;
+    private final int RV_MAIN_INDENT_21 = 10;
+    private final int RV_MAIN_INDENT = 20;
 
     @Nullable
     @Override
@@ -104,8 +106,13 @@ public class StationFragment extends BottomSheetDialogFragment
                 - RUtils.INSTANCE.getDimenFromAttr(android.R.attr.actionBarSize, getActivity())
                 - getResources().getDimensionPixelSize(R.dimen.sheet_bottom_height)
                 - getResources().getDimensionPixelSize(R.dimen.main_content_height)
-                - RUtils.INSTANCE.getDimenFromRes("status_bar_height", getActivity())
-                - (int) RUtils.INSTANCE.convertDpToPixels(RV_MAIN_INDENT, getActivity());
+                - RUtils.INSTANCE.getDimenFromRes("status_bar_height", getActivity());
+        if (Build.VERSION.SDK_INT >= 21) {
+            height -= (int) RUtils.INSTANCE.convertDpToPixels(RV_MAIN_INDENT_21, getActivity());
+        } else {
+            height -= (int) RUtils.INSTANCE.convertDpToPixels(RV_MAIN_INDENT, getActivity());
+        }
+
 
         // Set height of content for bottom sheet
         rvMain.setMinimumHeight(height);

@@ -27,10 +27,6 @@ import ru.railway.dc.routes.event.activity.AsyncListItemSchedule;
 import ru.railway.dc.routes.event.activity.RecyclerAdapter;
 import ru.railway.dc.routes.event.notification.NotificationTime;
 
-/**
- * Created by SQL on 24.01.2017.
- */
-
 public class FavouritePreviewActivity extends AppCompatActivity
         implements LoaderManager.LoaderCallbacks<Map<EventTableUtils.EventID, View>> {
 
@@ -76,7 +72,6 @@ public class FavouritePreviewActivity extends AppCompatActivity
     @Override
     protected void onPause() {
         super.onPause();
-        finish();
     }
 
     private void initSwipe() {

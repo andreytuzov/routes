@@ -10,7 +10,7 @@
         android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="@dimen/sheet_bottom_height"
-        app:cardCornerRadius="5dp"
+        app:cardCornerRadius="@dimen/bottom_sheet_corner_radius"
         app:cardElevation="@dimen/bottom_sheet_header_shadow_size">
 
         <FrameLayout

@@ -9,7 +9,7 @@ import ru.railway.dc.routes.App
 import ru.railway.dc.routes.R
 import java.util.*
 
-class TooltipManager() {
+class TooltipManager {
 
     private var mState: Int
     private var mLoadState: Int
@@ -22,7 +22,7 @@ class TooltipManager() {
         mLoadState = if (App.pref.contains(PREF_TOOLTIP_STATE))
             App.pref.getInt(PREF_TOOLTIP_STATE, 0)
         else
-            Int.MAX_VALUE
+            0b01111111_11111111_11111111_11110001
         mState = mLoadState
     }
 
@@ -56,7 +56,7 @@ class TooltipManager() {
                 mCurrentGroup = groupId
                 Handler().postDelayed({
                     mToolTipGroupMap[groupId]!!.show(listener)
-                }, 300)
+                }, 600)
                 mIsShowing = true
             } else {
                 mShowQueue.push(mToolTipGroupMap[groupId])
@@ -86,7 +86,9 @@ class TooltipManager() {
     }
 
     fun setContext(groupId: Int, c: Context) {
-        getToolTipGroup(groupId, null).setContext(c)
+        if (isGroupShow(groupId) && mToolTipGroupMap.containsKey(groupId)) {
+            getToolTipGroup(groupId, null).setContext(c)
+        }
     }
 
     fun resetGroup(vararg groupIdList: Int) {
@@ -109,6 +111,10 @@ class TooltipManager() {
             if (mLoadState and temp == 0)
                 mState = mState and temp.inv()
         }
+    }
+
+    fun clearGroup(vararg groupIdList: Int) {
+        groupIdList.forEach { mToolTipGroupMap[it]?.clear() }
     }
 
     private fun removeGroup(groupId: Int) {
@@ -152,6 +158,10 @@ class TooltipManager() {
             if (!isShowing && this.c == null) {
                 this.c = c
             }
+        }
+
+        fun clear() {
+            toolTipList.clear()
         }
 
         fun isContext(c: Context?) = this.c === c

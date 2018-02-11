@@ -1,6 +1,7 @@
 package ru.railway.dc.routes.display;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,6 +34,7 @@ public class ScheduleAdapter extends BaseExpandableListAdapter {
 
     private ScheduleView scheduleView;
     private LayoutInflater inflater;
+    private Drawable groupBackground;
 
     public ScheduleAdapter(Context context, Schedule schedule, OnHeaderLongClickListener listener) {
         this.scheduleView = new ScheduleView(schedule);
@@ -89,6 +91,7 @@ public class ScheduleAdapter extends BaseExpandableListAdapter {
         ViewHolderGroup holder;
         if (view == null) {
             view = inflater.inflate(R.layout.adapter_schedule_group, null);
+            view.setBackground(groupBackground);
             holder = new ViewHolderGroup();
             holder.tvID = (TextView) view.findViewById(R.id.tvID);
             holder.tvBStation = (TextView) view.findViewById(R.id.tvBStation);

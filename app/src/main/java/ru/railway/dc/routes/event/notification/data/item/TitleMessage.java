@@ -2,10 +2,9 @@ package ru.railway.dc.routes.event.notification.data.item;
 
 import android.app.Notification;
 import android.content.Context;
+import android.os.Build;
 
-/**
- * Created by SQL on 02.01.2017.
- */
+import ru.railway.dc.routes.R;
 
 public class TitleMessage implements IMessage {
 
@@ -22,11 +21,18 @@ public class TitleMessage implements IMessage {
     @Override
     public void addMessage(Notification.Builder builder, long time, Context context) {
         if (time <= lastTime) {
-            builder.setContentTitle(title);
+            String textTime = TimeDurationUtils.getTextFromTime((int) (lastTime - time) / 1000);
+            String contentTitle = title;
+            if (Build.VERSION.SDK_INT >= 23) {
+                builder.setSmallIcon(TimeDurationUtils.getIconFromText(context, textTime));
+            } else {
+                builder.setSmallIcon(R.mipmap.train_launcher);
+                contentTitle = textTime + " " + contentTitle;
+            }
+            builder.setContentTitle(contentTitle);
             if (subTitle != null) {
                 builder.setContentText(subTitle);
             }
-            SmallIconUtils.addSmallIcon(lastTime - time, builder, context);
         }
     }
 }

@@ -16,18 +16,18 @@
     <PreferenceCategory
         android:title="Время">
         <SwitchPreference
-            android:key="@string/pref.name.actualtime"
-            android:defaultValue="@string/pref.value.actualtime"
+            android:key="@string/pref_name_actualtime"
+            android:defaultValue="@string/pref_value_actualtime"
             android:disableDependentsState="true"
             android:title="Время"
-            android:summaryOn="Авто"
+            android:summaryOn="Текущее"
             android:summaryOff="Ручное"
             android:icon="@drawable/ic_preference_currenttime">
         </SwitchPreference>
         <EditTextPreference
-            android:key="@string/pref.name.btime"
-            android:defaultValue="@string/pref.value.btime"
-            android:dependency="@string/pref.name.actualtime"
+            android:key="@string/pref_name_btime"
+            android:defaultValue="@string/pref_value_btime"
+            android:dependency="@string/pref_name_actualtime"
             android:title="Начальное время"
             android:inputType="time"
             android:icon="@drawable/ic_preference_btime">
@@ -63,22 +63,22 @@
             android:title="Очистка кэша"
             android:icon="@drawable/ic_preference_clearcash">
         </Preference>
-        <SwitchPreference
-            android:key="@string/pref.name.edatetime"
-            android:defaultValue="@string/pref.value.edatetime"
-            android:disableDependentsState="true"
-            android:title="Дата"
-            android:summaryOn="Есть"
-            android:summaryOff="Нет"
-            android:icon="@drawable/ic_preference_edatetime">
-        </SwitchPreference>
+        <!--<SwitchPreference-->
+        <!--android:key="@string/pref.name.edatetime"-->
+        <!--android:defaultValue="@string/pref.value.edatetime"-->
+        <!--android:disableDependentsState="true"-->
+        <!--android:title="Дата"-->
+        <!--android:summaryOn="Есть"-->
+        <!--android:summaryOff="Нет"-->
+        <!--android:icon="@drawable/ic_preference_edatetime">-->
+        <!--</SwitchPreference>-->
     </PreferenceCategory>
 
     <PreferenceCategory
         android:title="Сохраненные маршруты">
         <EditTextPreference
-            android:key="@string/pref.name.period"
-            android:defaultValue="@string/pref.value.period"
+            android:key="@string/pref_name_period"
+            android:defaultValue="@string/pref_value_period"
             android:inputType="numberDecimal"
             android:title="Время обновления"
             android:summary="Указывается в секундах"

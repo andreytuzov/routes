@@ -2,6 +2,7 @@ package ru.railway.dc.routes;
 
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
@@ -34,6 +35,7 @@ public class FavouriteActivity extends AppCompatActivity
 
     // Соответствие позиции и listRouteID
     private int eventID;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +48,7 @@ public class FavouriteActivity extends AppCompatActivity
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null) {
-            toolbar.setTitle("Маршрут");
+            toolbar.setTitle(R.string.route_title);
             setSupportActionBar(toolbar);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
@@ -86,6 +88,8 @@ public class FavouriteActivity extends AppCompatActivity
                 // Чистим в БД
                 EventTableUtils.removeData(eventID);
                 // Удаляем из карты и проверка на empty
+                startActivity(new Intent(this,
+                        MainActivity.class));
                 finish();
                 break;
             case R.id.itemAddNotification:

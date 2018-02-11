@@ -12,9 +12,9 @@
 
     <dimen name="schedule_item_detail_height">30dp</dimen>
 
-    <dimen name="favourite.group.height">75dp</dimen>
-    <dimen name="favourite.group.half.height">38dp</dimen>
-    <dimen name="favourite.child.height">40dp</dimen>
+    <dimen name="favourite_group_height">75dp</dimen>
+    <dimen name="favourite_group_half_height">38dp</dimen>
+    <dimen name="favourite_child_height">40dp</dimen>
 
     <dimen name="bottom_sheet_header_shadow_size">3dp</dimen>
     <dimen name="station_item_shadow_size">1dp</dimen>
@@ -29,5 +29,8 @@
     <dimen name="font.size.large">20sp</dimen>
 
     <dimen name="spacing_huge">40dp</dimen>
+    <dimen name="favourite_line_width">3.5dp</dimen>
+    <dimen name="bottom_sheet_corner_radius">0dp</dimen>
+    <dimen name="preview_cardview_margin_top">0dp</dimen>
 
 </resources>
