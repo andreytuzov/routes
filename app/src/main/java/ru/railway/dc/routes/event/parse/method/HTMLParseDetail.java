@@ -140,9 +140,9 @@ public class HTMLParseDetail implements IParseDetail {
                 routes.add(r);
             }
         } catch (ParseException e) {
-            logger.error("Ошибка парсинга");
+            logger.error("Error parsing");
         } catch (IOException e) {
-            logger.info("Host не доступен");
+            logger.info("Host not found");
         }
         logger.debug("routes = " + routes);
         return routes;
@@ -175,8 +175,10 @@ public class HTMLParseDetail implements IParseDetail {
                     month = i + 1;
                 }
             }
-            this.month = month;
-            this.day = day;
+            if (month >= this.month)
+                this.month = month;
+            if (day >= this.day)
+                this.day = day;
         }
     }
 }
