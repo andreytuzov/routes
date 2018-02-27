@@ -40,11 +40,13 @@ public class HTMLParseRailway implements IParseRailway {
     public ListRoute get(String bStation, String eStation, String date) {
         ListRoute routes = null;
         try {
-            String url = String.format(URL_RAILWAY, bStation, eStation, date);
+            String url = new String(String.format(URL_RAILWAY,
+                    URLEncoder.encode(bStation, "UTF-8"),
+                    URLEncoder.encode(eStation, "UTF-8"),
+                    date));
             logger.debug("Начало загрузки\taddress = " + url);
             // Грузим HTML-страницу по URL_RAILWAY адресу с указанными параметрами
-            Document doc = Jsoup.connect(new String(String.format(URL_RAILWAY, URLEncoder.encode(bStation, "UTF-8"),
-                    URLEncoder.encode(eStation, "UTF-8"), date)))
+            Document doc = Jsoup.connect(url)
                     .timeout(TIMEOUT)
                     .userAgent("Mozilla/5.0 (Windows; U; WindowsNT 5.1; en-US; rv1.8.1.6) Gecko/20070725 Firefox/2.0.0.6")
                     .get();

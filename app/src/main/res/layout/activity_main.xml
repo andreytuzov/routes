@@ -59,7 +59,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:onClick="onClickResult"
+        android:onClick="onClick"
         android:src="@drawable/ic_main_search"
         app:fab_colorNormal="@color/accent"
         app:layout_anchor="@id/bottom_sheet"

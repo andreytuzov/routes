@@ -1,25 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <include android:id="@+id/toolbar"
-        layout="@layout/view_toolbar"/>
-    <ProgressBar
-        android:id="@+id/progress"
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/view_toolbar" />
+
+    <FrameLayout
+        android:id="@+id/btnRepeatSearch"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/schedule_repeat_background"
+        android:onClick="onClick"
+        android:visibility="invisible">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/schedule_repeat_search"
+            android:textSize="19sp" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/searchLayer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:indeterminate="true"
-        />
-    <TextView
-        android:layout_below="@id/progress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:textSize="@dimen/font.size.large"
-        android:text="Загрузка..."
-        android:textColor="@color/primary_text"
-        />
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/schedule_msg_loading"
+            android:textColor="@color/primary_text"
+            android:textSize="@dimen/font_size_large" />
+    </LinearLayout>
+
 </RelativeLayout>

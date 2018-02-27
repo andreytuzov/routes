@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="main_content_height">147dp</dimen>
 
     <dimen name="sheet_bottom_height">55dp</dimen>
     <dimen name="sheet_bottom_elevation_on">10dp</dimen>
@@ -25,12 +24,17 @@
     <dimen name="font.size.small">14sp</dimen>
     <dimen name="font.size.small.1">15sp</dimen>
     <dimen name="font.size.middle">16sp</dimen>
-    <dimen name="font.size.normal">18sp</dimen>
-    <dimen name="font.size.large">20sp</dimen>
+    <dimen name="font.size.normal">19sp</dimen>
+    <dimen name="font_size_large">20sp</dimen>
 
     <dimen name="spacing_huge">40dp</dimen>
     <dimen name="favourite_line_width">3.5dp</dimen>
     <dimen name="bottom_sheet_corner_radius">0dp</dimen>
     <dimen name="preview_cardview_margin_top">0dp</dimen>
+    <dimen name="main_content_height">187dp</dimen>
+    <dimen name="content_divider_height">1dp</dimen>
+    <dimen name="main_content_station_height">101dp</dimen>
+    <dimen name="main_content_time_height">40dp</dimen>
+    <dimen name="main_content_date_height">45dp</dimen>
 
 </resources>

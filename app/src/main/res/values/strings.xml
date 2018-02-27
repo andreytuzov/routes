@@ -2,13 +2,6 @@
 
     <string name="app_name">Диспетчер маршрутов</string>
 
-    <!-- НАСТРОЙКИ ЗНАЧЕНИЙ ПО УМОЛЧАНИЮ -->
-
-    <string name="search_placeholder_bString">Станция отправления</string>
-    <string name="search_placeholder_eString">Станция прибытия</string>
-    <string name="search_value_bdate">current</string>
-    <string name="search_value_edate">current</string>
-
     <!-- НАСТРОЙКИ ПРИЛОЖЕНИЯ -->
 
     <!-- ДАТА -->
@@ -54,6 +47,15 @@
     <string name="sort_travel_time">Время в пути </string>
     <string name="sort_title">Сортировка</string>
     <string name="search_title">Поиск маршрута</string>
+    <string name="b_station_placeholder">Станция отправления</string>
+    <string name="e_station_placeholder">Станция прибытия</string>
     <string name="route_title">Маршрут</string>
+    <string name="connection_msg_not_found">Нет интернет соединения</string>
+    <string name="schedule_msg_save_success">Расписание сохранено</string>
+    <string name="schedule_msg_save_error">Ошибка сохранения расписания</string>
+    <string name="schedule_msg_search_error">Ошибка поиска расписания</string>
+    <string name="schedule_repeat_search">Повторить</string>
+    <string name="not_found_title">Ошибка поиска</string>
+    <string name="schedule_msg_loading">Загрузка...</string>
 
 </resources>

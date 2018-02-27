@@ -62,7 +62,7 @@
         android:layout_marginTop="10dp"
         android:textStyle="bold"
         android:textColor="@color/primary_text"
-        android:textSize="@dimen/font.size.large"
+        android:textSize="@dimen/font_size_large"
         />
     <ImageView
         android:id="@+id/tvLine"
@@ -86,7 +86,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
         android:textStyle="bold"
-        android:textSize="@dimen/font.size.large"
+        android:textSize="@dimen/font_size_large"
         />
     <TextView
         android:id="@+id/tvTotalTime"

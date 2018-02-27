@@ -1,25 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?><!-- КАРТОЧКА ВЫБОРА СТАНЦИЯ И ВРЕМЕНИ -->
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    card_view:cardCornerRadius="4dp"
-    card_view:cardElevation="5dp">
+    android:background="@color/light"
+    app:cardCornerRadius="4dp"
+    app:cardElevation="5dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/main_content_height"
         android:orientation="vertical">
-        <!-- ИЗМЕНЕНИЕ СТАНЦИЙ -->
+
+        <!-- Setting begin and end station -->
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <!-- СТАНЦИЯ ОТПРАВЛЕНИЯ -->
+            android:layout_height="@dimen/main_content_station_height">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+                <!-- Begin station-->
                 <TextView
                     android:id="@+id/bStation"
                     android:layout_width="match_parent"
@@ -28,44 +31,36 @@
                     android:ellipsize="end"
                     android:gravity="center_vertical"
                     android:minHeight="50dp"
-                    android:onClick="onChoiceStation"
+                    android:onClick="onClick"
                     android:paddingLeft="10dp"
                     android:singleLine="true"
                     android:textColor="@color/primary_text"
                     android:textSize="@dimen/font.size.normal" />
 
-                <TextView
-                    android:id="@+id/divider"
+                <!-- Divider-->
+                <View
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/content_divider_height"
                     android:layout_below="@id/bStation"
-                    android:background="@color/divider"
-                    android:maxHeight="1dp" />
-                <!-- СТАНЦИЯ ПРИБЫТИЯ -->
+                    android:background="@color/divider" />
+
+                <!-- End station -->
                 <TextView
                     android:id="@+id/eStation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/divider"
                     android:background="@drawable/btn_primary"
                     android:ellipsize="end"
                     android:gravity="center_vertical"
                     android:minHeight="50dp"
-                    android:onClick="onChoiceStation"
+                    android:onClick="onClick"
                     android:paddingLeft="10dp"
                     android:singleLine="true"
                     android:textColor="@color/primary_text"
                     android:textSize="@dimen/font.size.normal" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/eStation"
-                    android:background="@color/divider"
-                    android:maxHeight="1dp" />
             </LinearLayout>
 
-            <!-- КНОПКА ОБМЕНА СТАНЦИЙ -->
+            <!-- Swap button -->
             <ImageView
                 android:id="@+id/swapStation"
                 android:layout_width="wrap_content"
@@ -74,15 +69,78 @@
                 android:layout_centerVertical="true"
                 android:layout_marginRight="15dp"
                 android:background="@drawable/btn_accent"
-                android:onClick="onChoiceStation"
+                android:onClick="onClick"
                 android:src="@drawable/ic_main_swapstation" />
         </RelativeLayout>
 
-        <!-- ИЗМЕНЕНИЕ ВРЕМЕНИ -->
+        <!-- Divider-->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/content_divider_height"
+            android:background="@color/divider" />
+
+        <!-- Setting begin and end time for schedule -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:layout_marginTop="1dp"
+            android:layout_height="@dimen/main_content_time_height"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:id="@+id/currentTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/btn_accent"
+                android:onClick="onClick"
+                android:src="@drawable/ic_preference_btime" />
+
+            <TextView
+                android:id="@+id/startTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="2dp"
+                android:text="08:00"
+                android:textColor="@color/primary_text"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+
+
+            <com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar
+                android:id="@+id/seekbar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                app:bar_color="@color/primary_light"
+                app:bar_highlight_color="@color/primary"
+                app:corner_radius="10"
+                app:data_type="_integer"
+                app:gap="30"
+                app:left_thumb_image="@drawable/seek_thumb_normal"
+                app:left_thumb_image_pressed="@drawable/seek_thumb_pressed"
+                app:max_value="1439"
+                app:min_value="0"
+                app:right_thumb_image="@drawable/seek_thumb_normal"
+                app:right_thumb_image_pressed="@drawable/seek_thumb_pressed" />
+
+            <TextView
+                android:id="@+id/endTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="10dp"
+                android:text="20:30"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <!-- Setting date for schedule -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/main_content_date_height"
             android:orientation="horizontal">
             <!-- КАЛЕНДАРЬ НАЧАЛЬНОЙ ДАТЫ -->
             <FrameLayout
@@ -91,7 +149,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="6dp"
                 android:layout_marginRight="4dp"
-                android:onClick="onChangeDate">
+                android:onClick="onClick">
 
                 <ImageView
                     android:id="@+id/bCalendar"
@@ -110,6 +168,7 @@
                     android:textColor="@color/secondary_text"
                     android:textSize="@dimen/font.size.micro" />
             </FrameLayout>
+
             <!-- СЕГОДНЯ -->
             <TextView
                 android:id="@+id/today"
@@ -117,8 +176,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="8dp"
-                android:onClick="onChangeDate"
-                android:text="Сегодня" />
+                android:onClick="onClick"
+                android:text="Сегодня"
+                android:textSize="17sp" />
+
             <!-- ЗАВТРА -->
             <TextView
                 android:id="@+id/tomorrow"
@@ -126,36 +187,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="8dp"
-                android:onClick="onChangeDate"
+                android:onClick="onClick"
                 android:text="Завтра"
-                android:textSize="15sp" />
-
-            <!-- КАЛЕНДАРЬ КОНЕЧНОЙ ДАТЫ -->
-            <FrameLayout
-                android:id="@+id/eCalendarDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="6dp"
-                android:layout_marginRight="6dp"
-                android:onClick="onChangeDate">
-
-                <ImageView
-                    android:id="@+id/eCalendar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal|top"
-                    android:layout_marginBottom="6dp"
-                    android:layout_marginTop="3dp"
-                    android:src="@android:drawable/ic_menu_today" />
-
-                <TextView
-                    android:id="@+id/eDate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom|center_horizontal"
-                    android:textColor="@color/secondary_text"
-                    android:textSize="@dimen/font.size.micro" />
-            </FrameLayout>
+                android:textSize="17sp" />
 
             <!-- Search icon -->
             <FrameLayout
@@ -168,13 +202,15 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical|right"
                     android:layout_marginRight="15dp"
-                    android:onClick="onClickResult"
+                    android:onClick="onClick"
                     android:scaleType="centerInside"
                     android:src="@drawable/ic_additional_search"
                     android:visibility="invisible" />
             </FrameLayout>
 
         </LinearLayout>
+
+
     </LinearLayout>
 
 </android.support.v7.widget.CardView>
