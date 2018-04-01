@@ -4,10 +4,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/action_search"
-        android:title="поиск"
+        android:title="Поиск"
         android:icon="@android:drawable/ic_menu_search"
         app:showAsAction="ifRoom|collapseActionView"
         app:actionViewClass="android.support.v7.widget.SearchView">
+    </item>
+    <item
+        android:id="@+id/itemRegion"
+        android:title="Выбор региона"
+        android:icon="@drawable/ic_preference_region">
     </item>
     <item
         android:id="@+id/action_help"

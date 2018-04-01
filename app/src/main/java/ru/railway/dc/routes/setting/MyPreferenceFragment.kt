@@ -17,8 +17,8 @@ import ru.railway.dc.routes.tools.AppUtils
 class MyPreferenceFragment : PreferenceFragment(), Preference.OnPreferenceClickListener, Preference.OnPreferenceChangeListener {
 
     companion object {
-        private val TASK_CLEAR_CASH = 0
-        private val TASK_CLEAR_EVENT = 1
+        val TASK_CLEAR_CASH = 0
+        val TASK_CLEAR_EVENT = 1
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,8 +29,6 @@ class MyPreferenceFragment : PreferenceFragment(), Preference.OnPreferenceClickL
         findPreference(getString(R.string.pref_name_clearevent)).onPreferenceClickListener = this
         findPreference(getString(R.string.pref_name_period)).onPreferenceChangeListener = this
         findPreference(getString(R.string.pref_name_stationtime)).onPreferenceChangeListener = this
-        findPreference(getString(R.string.pref_name_btime)).onPreferenceChangeListener = this
-        findPreference(getString(R.string.pref_name_etime)).onPreferenceChangeListener = this
     }
 
     override fun onPreferenceClick(preference: Preference): Boolean {
@@ -57,9 +55,6 @@ class MyPreferenceFragment : PreferenceFragment(), Preference.OnPreferenceClickL
             updatePeriodTime(period)
         } else if (title == getString(R.string.pref_name_stationtime) && value.matches("^\\d+$".toRegex())) {
             updateStationTime(Integer.valueOf(value)!!)
-        } else if ((title == getString(R.string.pref_name_btime) || title == getString(R.string.pref_name_etime)) && value.matches("^(([0,1][0-9])|(2[0-3])):[0-5][0-9]$".toRegex())) {
-        } else {
-            return false
         }
         return true
     }
@@ -90,8 +85,8 @@ class MyPreferenceFragment : PreferenceFragment(), Preference.OnPreferenceClickL
 
         override fun onPostExecute(key: Int?) {
             when (key) {
-                TASK_CLEAR_CASH -> Toast.makeText(context, "Очистка кэша завершена", Toast.LENGTH_SHORT).show()
-                TASK_CLEAR_EVENT -> Toast.makeText(context, "Очистка событий завершена", Toast.LENGTH_SHORT).show()
+                TASK_CLEAR_CASH -> Toast.makeText(context, R.string.task_clear_cash_completed, Toast.LENGTH_SHORT).show()
+                TASK_CLEAR_EVENT -> Toast.makeText(context, R.string.task_clear_data_completed, Toast.LENGTH_SHORT).show()
             }
         }
     }

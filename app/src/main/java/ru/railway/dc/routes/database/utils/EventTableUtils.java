@@ -378,7 +378,7 @@ public class EventTableUtils {
         // Записываем маршруты
         List<Long> routeIDs = saveData(listRoute, eventID);
         // Записываем детальные маршруты
-        Schedule schedule = ManagerParseDetail.getScheduleDetail(listRoute);
+        Schedule schedule = ManagerParseDetail.Companion.getScheduleDetail(listRoute);
 
         // Проверяем на наличие данных
         if (schedule != null) {

@@ -3,6 +3,7 @@ package ru.railway.dc.routes
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
+import android.os.Handler
 import org.apache.log4j.BasicConfigurator
 import ru.railway.dc.routes.database.AssetsDB
 import ru.railway.dc.routes.database.DB
@@ -16,6 +17,8 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        instance = this
+        handler = Handler()
         Thread.setDefaultUncaughtExceptionHandler(TryMe())
         super.onCreate()
         BasicConfigurator.configure()
@@ -37,6 +40,10 @@ class App : Application() {
         lateinit var requestData: RequestData
             private set
         lateinit var tooltipManager: TooltipManager
+            private set
+        lateinit var instance: App
+            private set
+        lateinit var handler: Handler
             private set
     }
 }

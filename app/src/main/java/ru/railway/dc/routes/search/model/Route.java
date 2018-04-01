@@ -226,6 +226,6 @@ public class Route {
     @Override
     public String toString() {
         return String.format("%3$s - %4$s %1$s - %2$s", bStation, eStation,
-                getBTimeString(DATE_TIME_FORMAT), getETimeString(DATE_TIME_FORMAT));
+                getBTimeString(TIME_FORMAT), getETimeString(TIME_FORMAT));
     }
 }

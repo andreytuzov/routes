@@ -1,45 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android">
-    <!--<PreferenceCategory-->
-        <!--android:title="Дата">-->
-        <!--<SwitchPreference-->
-            <!--android:key="@string/pref.name.edatetime"-->
-            <!--android:defaultValue="@string/pref.value.edatetime"-->
-            <!--android:title="Количество дней"-->
-            <!--android:summaryOn="Интервал дат"-->
-            <!--android:summaryOff="Один день"-->
-            <!--android:icon="@drawable/ic_preference_countday">-->
-        <!--</SwitchPreference>-->
-    <!--</PreferenceCategory>-->
-
-    <PreferenceCategory
-        android:title="Время">
-        <SwitchPreference
-            android:key="@string/pref_name_actualtime"
-            android:defaultValue="@string/pref_value_actualtime"
-            android:disableDependentsState="true"
-            android:title="Время"
-            android:summaryOn="Текущее"
-            android:summaryOff="Ручное"
-            android:icon="@drawable/ic_preference_currenttime">
-        </SwitchPreference>
-        <EditTextPreference
-            android:key="@string/pref_name_btime"
-            android:defaultValue="@string/pref_value_btime"
-            android:dependency="@string/pref_name_actualtime"
-            android:title="Начальное время"
-            android:inputType="time"
-            android:icon="@drawable/ic_preference_btime">
-        </EditTextPreference>
-        <EditTextPreference
-            android:key="@string/pref.name.etime"
-            android:defaultValue="@string/pref.value.etime"
-            android:title="Конечное время"
-            android:inputType="time"
-            android:icon="@drawable/ic_preference_etime">
-        </EditTextPreference>
-    </PreferenceCategory>
 
     <PreferenceCategory
         android:title="Поиск">
@@ -60,18 +21,9 @@
         </EditTextPreference>
         <Preference
             android:key="@string/pref.name.clearcash"
-            android:title="Очистка кэша"
+            android:title="@string/menu_item_clear_cash"
             android:icon="@drawable/ic_preference_clearcash">
         </Preference>
-        <!--<SwitchPreference-->
-        <!--android:key="@string/pref.name.edatetime"-->
-        <!--android:defaultValue="@string/pref.value.edatetime"-->
-        <!--android:disableDependentsState="true"-->
-        <!--android:title="Дата"-->
-        <!--android:summaryOn="Есть"-->
-        <!--android:summaryOff="Нет"-->
-        <!--android:icon="@drawable/ic_preference_edatetime">-->
-        <!--</SwitchPreference>-->
     </PreferenceCategory>
 
     <PreferenceCategory
@@ -86,7 +38,7 @@
         </EditTextPreference>
         <Preference
             android:key="@string/pref.name.clearevent"
-            android:title="Удаление маршрутов"
+            android:title="@string/menu_item_clear_data"
             android:icon="@drawable/ic_preference_removeroutes">
         </Preference>
     </PreferenceCategory>

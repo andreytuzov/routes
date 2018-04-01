@@ -4,20 +4,6 @@
 
     <!-- НАСТРОЙКИ ПРИЛОЖЕНИЯ -->
 
-    <!-- ДАТА -->
-    <string name="pref.name.edatetime">eDateTime</string>
-    <string name="pref.value.edatetime">false</string>
-
-    <!-- ВРЕМЯ -->
-    <string name="pref_name_actualtime">actualTime</string>
-    <string name="pref_value_actualtime">false</string>
-
-    <string name="pref_name_btime">bTime</string>
-    <string name="pref_value_btime">07:30</string>
-
-    <string name="pref.name.etime">eTime</string>
-    <string name="pref.value.etime">20:30</string>
-
     <!-- ПОИСК -->
     <string name="pref.name.stationtime">stationTime</string>
     <string name="pref.value.stationtime">30</string>
@@ -57,5 +43,13 @@
     <string name="schedule_repeat_search">Повторить</string>
     <string name="not_found_title">Ошибка поиска</string>
     <string name="schedule_msg_loading">Загрузка...</string>
+    <string name="tooltip_main_content_seekbar">Ограничение времени отправления и прибытия</string>
+    <string name="menu_item_clear_cash">Очистка кэша</string>
+    <string name="menu_item_clear_data">Удаление маршрутов</string>
+    <string name="task_clear_cash_completed">Очистка кэша завершена</string>
+    <string name="task_clear_data_completed">Очистка маршрутов завершена</string>
+    <string name="context_menu_save">Сохранить</string>
+    <string name="context_menu_share">Поделиться</string>
+    <string name="share">Поделиться</string>
 
 </resources>

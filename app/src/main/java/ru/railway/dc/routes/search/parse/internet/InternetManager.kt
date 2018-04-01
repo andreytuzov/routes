@@ -56,6 +56,8 @@ class InternetManager() {
             // Маршруты прибытия на конечную станцию
             stations.mapTo(listQuery) {
                 QueryInternet(bStation, it, date, isCash)
+            }
+            stations.mapTo(listQuery) {
                 QueryInternet(it, eStation, date, isCash)
             }
             // Маршруты между промежуточными станциями

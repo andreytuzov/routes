@@ -1,5 +1,6 @@
 package ru.railway.dc.routes
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
@@ -7,13 +8,11 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.ExpandableListView
-import com.github.mrengineer13.snackbar.SnackBar
 import com.kennyc.bottomsheet.BottomSheet
 import com.kennyc.bottomsheet.BottomSheetListener
 import io.reactivex.*
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.activity_schedule_load.*
 import ru.railway.dc.routes.database.utils.EventTableUtils
 import ru.railway.dc.routes.display.ScheduleAdapter
 import ru.railway.dc.routes.display.sort.TypeSortEnum
@@ -22,30 +21,11 @@ import ru.railway.dc.routes.search.model.Route
 import ru.railway.dc.routes.search.model.Schedule
 import ru.railway.dc.routes.search.parse.ManagerParseRailway
 import ru.railway.dc.routes.tools.AppUtils
+import ru.railway.dc.routes.utils.ToastUtils
 import java.text.SimpleDateFormat
 import java.util.*
 
 class ScheduleActivity : AppCompatActivity() {
-
-    companion object {
-        private const val SCHEDULE_LOADER_ID = 1
-
-        // Group attributes
-        private const val ATTR_GROUP_B_TIME = "bTime"
-        private const val ATTR_GROUP_E_TIME = "eTime"
-        private const val ATTR_GROUP_B_STATION = "bStation"
-        private const val ATTR_GROUP_E_STATION = "eStation"
-        private const val ATTR_GROUP_TOTAL_TIME = "totalTime"
-        private const val ATTR_GROUP_ID = "_id"
-
-        // Child attributes
-        private const val ATTR_CHILD_B_TIME = "bTime"
-        private const val ATTR_CHILD_E_TIME = "eTime"
-        private const val ATTR_CHILD_B_STATION = "bStation"
-        private const val ATTR_CHILD_E_STATION = "eStation"
-        private const val ATTR_CHILD_TRAIN_TIME = "trainTime"
-        private const val ATTR_CHILD_STATION_TIME = "stationTime"
-    }
 
     private var adapter: ScheduleAdapter? = null
     private lateinit var elvMain: ExpandableListView
@@ -84,9 +64,11 @@ class ScheduleActivity : AppCompatActivity() {
                     adapter = ScheduleAdapter(this, it, ScheduleAdapter.OnHeaderLongClickListener { position -> showContextMenu(position) })
                     elvMain.setAdapter(adapter)
                 }, {}, {
+                    if (!AppUtils.hasConnection())
+                        ToastUtils.show(this, R.string.connection_msg_not_found)
                     supportActionBar!!.setTitle(R.string.not_found_title)
                     findViewById(R.id.btnRepeatSearch).visibility = View.VISIBLE
-                    findViewById(R.id.searchLayer).visibility = View.INVISIBLE
+                    findViewById(R.id.searchLayer).visibility = View.GONE
                 })
     }
 
@@ -94,7 +76,7 @@ class ScheduleActivity : AppCompatActivity() {
         when (view.id) {
             R.id.btnRepeatSearch -> {
                 startSearchSchedule()
-                view.visibility = View.INVISIBLE
+                view.visibility = View.GONE
                 findViewById(R.id.searchLayer).visibility = View.VISIBLE
             }
         }
@@ -137,25 +119,26 @@ class ScheduleActivity : AppCompatActivity() {
 
                     // Обработка нажатия кнопки
                     override fun onSheetItemSelected(bottomSheet: BottomSheet, menuItem: MenuItem) {
-                        // Запускаем задачу на выполнение
-                        if (!AppUtils.hasConnection()) {
-                            SnackBar.Builder(this@ScheduleActivity)
-                                    .withMessageId(R.string.connection_msg_not_found)
-                                    .withDuration(SnackBar.MED_SNACK)
-                                    .show()
-                        }
-                        // Save routes in favourite table
-                        saveRoutesObservable(id).subscribe { isSuccess ->
-                            SnackBar.Builder(this@ScheduleActivity)
-                                    .withMessageId(
+                        when (menuItem.itemId) {
+                            R.id.itemAddFavourite ->
+                                // Save routes in favourite table
+                                saveRoutesObservable(id).subscribe { isSuccess ->
+                                    ToastUtils.show(this@ScheduleActivity,
                                             if (isSuccess!!)
                                                 R.string.schedule_msg_save_success
+                                            else if (!AppUtils.hasConnection())
+                                                R.string.connection_msg_not_found
                                             else
-                                                R.string.schedule_msg_save_error
-                                    )
-                                    .withDuration(SnackBar.MED_SNACK)
-                                    .show()
+                                                R.string.schedule_msg_save_error)
+                                }
+                            R.id.itemShare -> {
+                                val i = Intent(Intent.ACTION_SEND)
+                                        .setType("text/plain")
+                                        .putExtra(Intent.EXTRA_TEXT, schedule.get(id).toString())
+                                startActivity(Intent.createChooser(i, resources.getString(R.string.share)))
+                            }
                         }
+
                     }
 
                     override fun onSheetDismissed(bottomSheet: BottomSheet, i: Int) {}

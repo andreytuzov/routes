@@ -1,8 +1,10 @@
 package ru.railway.dc.routes
 
 import android.content.Context
+import android.content.Intent
 import android.database.Cursor
 import android.graphics.Point
+import android.graphics.Region
 import android.os.Bundle
 import android.support.v4.app.LoaderManager
 import android.support.v4.content.CursorLoader
@@ -202,6 +204,8 @@ class StationActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
                 prepareTooltip(false)
                 return true
             }
+            R.id.itemRegion ->
+                startActivity(Intent(this, RegionActivity::class.java))
         }
         return super.onOptionsItemSelected(item)
     }

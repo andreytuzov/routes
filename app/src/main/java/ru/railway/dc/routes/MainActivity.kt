@@ -24,8 +24,11 @@ import com.mikepenz.materialdrawer.model.DividerDrawerItem
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 import it.sephiroth.android.library.tooltip.Tooltip
+import ru.railway.dc.routes.database.utils.CashDetailTableUtils
+import ru.railway.dc.routes.database.utils.CashTableUtils
 import ru.railway.dc.routes.request.data.RequestData
 import ru.railway.dc.routes.request.fragment.dialog.DateFragment
+import ru.railway.dc.routes.setting.MyPreferenceFragment
 import ru.railway.dc.routes.utils.DateUtils
 import ru.railway.dc.routes.utils.TooltipManager
 import java.util.*
@@ -228,6 +231,9 @@ class MainActivity : AppCompatActivity(), RequestData.OnChangeDataListener {
                 prepareToolTip(false)
                 return false
             }
+            R.id.itemClearCash ->
+                MyPreferenceFragment.MyTask(this).execute(MyPreferenceFragment.TASK_CLEAR_CASH)
+
         }
         return super.onOptionsItemSelected(item)
     }
@@ -293,6 +299,8 @@ class MainActivity : AppCompatActivity(), RequestData.OnChangeDataListener {
         tooltipManager.addToolTip(findViewById(R.id.bStation), R.string.tooltip_main_content_bstation, Tooltip.Gravity.BOTTOM,
                 TooltipManager.MAIN_GROUP, true, this)
         tooltipManager.addToolTip(findViewById(R.id.eStation), R.string.tooltip_main_content_estation, Tooltip.Gravity.BOTTOM,
+                TooltipManager.MAIN_GROUP, true, this)
+        tooltipManager.addToolTip(findViewById(R.id.seekbar), R.string.tooltip_main_content_seekbar, Tooltip.Gravity.BOTTOM,
                 TooltipManager.MAIN_GROUP, true, this)
         tooltipManager.addToolTip(findViewById(R.id.bCalendarDate), R.string.tooltip_main_content_bcalendar, Tooltip.Gravity.BOTTOM,
                 TooltipManager.MAIN_GROUP, true, this)

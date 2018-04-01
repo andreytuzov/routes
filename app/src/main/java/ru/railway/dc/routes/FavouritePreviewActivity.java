@@ -14,6 +14,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -26,6 +27,7 @@ import ru.railway.dc.routes.event.ManagerEvent;
 import ru.railway.dc.routes.event.activity.AsyncListItemSchedule;
 import ru.railway.dc.routes.event.activity.RecyclerAdapter;
 import ru.railway.dc.routes.event.notification.NotificationTime;
+import ru.railway.dc.routes.setting.MyPreferenceFragment;
 
 public class FavouritePreviewActivity extends AppCompatActivity
         implements LoaderManager.LoaderCallbacks<Map<EventTableUtils.EventID, View>> {
@@ -65,18 +67,14 @@ public class FavouritePreviewActivity extends AppCompatActivity
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_preview_favourite, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     private void initSwipe() {
         ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0,
-                ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT ) {
+                ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder,
                                   RecyclerView.ViewHolder target) {
@@ -95,31 +93,31 @@ public class FavouritePreviewActivity extends AppCompatActivity
                 final int position = viewHolder.getAdapterPosition();
                 // Диалог для подтверждения
                 new AlertDialog.Builder(FavouritePreviewActivity.this)
-                    .setTitle("Вы хотите удалить элемент ?")
-                    .setPositiveButton("Да", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            EventTableUtils.removeData(eventIDs.get(position).getId());
-                            removeNotification(eventIDs.get(position).getId());
-                            adapter.remove(position);
-                            if (adapter.getItemCount() == 0) {
-                                finish();
+                        .setTitle("Вы хотите удалить элемент ?")
+                        .setPositiveButton("Да", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                EventTableUtils.removeData(eventIDs.get(position).getId());
+                                removeNotification(eventIDs.get(position).getId());
+                                adapter.remove(position);
+                                if (adapter.getItemCount() == 0) {
+                                    finish();
+                                }
                             }
-                        }
-                    })
-                    .setNegativeButton("Нет", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            adapter.notifyItemChanged(position);
-                        }
-                    })
-                    .setOnCancelListener(new DialogInterface.OnCancelListener() {
-                        @Override
-                        public void onCancel(DialogInterface dialog) {
-                            adapter.notifyItemChanged(position);
-                        }
-                    })
-                    .show();
+                        })
+                        .setNegativeButton("Нет", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                adapter.notifyItemChanged(position);
+                            }
+                        })
+                        .setOnCancelListener(new DialogInterface.OnCancelListener() {
+                            @Override
+                            public void onCancel(DialogInterface dialog) {
+                                adapter.notifyItemChanged(position);
+                            }
+                        })
+                        .show();
             }
         };
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
@@ -128,8 +126,14 @@ public class FavouritePreviewActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            finish();
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+            case R.id.itemClearData:
+                new MyPreferenceFragment.MyTask(this).execute(MyPreferenceFragment.Companion.getTASK_CLEAR_EVENT());
+                finish();
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

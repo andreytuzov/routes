@@ -15,7 +15,7 @@ import ru.railway.dc.routes.utils.Utils;
 
 // TODO оптимизировать (убрать лишнее)
 public class ItemScheduleFactory {
-    public static ItemSchedule parse (Schedule schedule) {
+    public static ItemSchedule parse(Schedule schedule) {
         List<List<ItemSchedule.ItemTime>> list = new ArrayList<>();
         // Первый маршрут и последний
         Route routeFirst = null;
@@ -75,24 +75,24 @@ public class ItemScheduleFactory {
         list.add(listChild);
         // Формируем объект с данными
         ItemSchedule itemSchedule = new ItemSchedule(list);
-        Log.d("ItemSchedule: ",  "itemSchedule:" + itemSchedule);
+        Log.d("ItemSchedule: ", "itemSchedule:" + itemSchedule);
 
         return itemSchedule;
     }
 
     // Для Child
     private static ItemSchedule.ItemTime createItemTimeChild(long sT, long eT,
-                                                      String station, String bTime, String eTime,
-                                                      int trainTime, int stationTime) {
+                                                             String station, String bTime, String eTime,
+                                                             int trainTime, int stationTime) {
         return createItemTimeGroup(sT, eT, station, bTime, eTime, trainTime, stationTime,
                 trainTime, false, null);
     }
 
     // Для Group
     private static ItemSchedule.ItemTime createItemTimeGroup(long sT, long eT,
-                                                      String station, String bTime, String eTime,
-                                                      int trainTime, int stationTime,
-                                                      int trainTimeGroup, boolean isGroup, String typeTrainGroup) {
+                                                             String station, String bTime, String eTime,
+                                                             int trainTime, int stationTime,
+                                                             int trainTimeGroup, boolean isGroup, String typeTrainGroup) {
         String sTrainTime = "";
         if (trainTime >= 0) {
             sTrainTime = Utils.getTextTime(trainTime);
@@ -109,8 +109,6 @@ public class ItemScheduleFactory {
                 sStationTime, isGroup, typeTrainGroup);
         return new ItemSchedule.ItemTime(sT, eT, dataItem);
     }
-
-
 
 
 }

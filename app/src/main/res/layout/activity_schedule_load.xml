@@ -14,7 +14,7 @@
         android:layout_centerInParent="true"
         android:background="@drawable/schedule_repeat_background"
         android:onClick="onClick"
-        android:visibility="invisible">
+        android:visibility="gone">
 
         <TextView
             android:layout_width="wrap_content"

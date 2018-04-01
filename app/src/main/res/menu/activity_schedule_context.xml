@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/itemAddFavourite"
-        android:title="Сохранить"
         android:icon="@drawable/ic_schedule_save"
-        />
+        android:title="@string/context_menu_save" />
+    <item
+        android:id="@+id/itemShare"
+        android:icon="@drawable/ic_schedule_share"
+        android:title="@string/context_menu_share" />
 </menu>

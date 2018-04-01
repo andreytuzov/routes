@@ -3,6 +3,41 @@ package ru.railway.dc.routes.utils
 import java.text.SimpleDateFormat
 import java.util.*
 
+fun Calendar.compose(day: Int? = null, month: Int? = null, year: Int? = null, hour: Int? = null, minute: Int? = null): Calendar {
+    day?.let { set(Calendar.DAY_OF_MONTH, it) }
+    month?.let { set(Calendar.MONTH, it) }
+    year?.let { set(Calendar.YEAR, it) }
+    hour?.let { set(Calendar.HOUR_OF_DAY, it) }
+    minute?.let { set(Calendar.MINUTE, it) }
+    return this
+}
+
+fun Calendar.composeDMY(day: Int, month: Int, year: Int): Calendar {
+    set(Calendar.DAY_OF_MONTH, day)
+    set(Calendar.MONTH, month)
+    set(Calendar.YEAR, year)
+    return this
+}
+
+fun Calendar.composeDMY(calendarDMY: Calendar): Calendar {
+    set(Calendar.DAY_OF_MONTH, calendarDMY.get(Calendar.DAY_OF_MONTH))
+    set(Calendar.MONTH, calendarDMY.get(Calendar.MONTH))
+    set(Calendar.YEAR, calendarDMY.get(Calendar.YEAR))
+    return this
+}
+
+fun Calendar.composeHM(hour: Int, minute: Int): Calendar {
+    set(Calendar.HOUR_OF_DAY, hour)
+    set(Calendar.MINUTE, minute)
+    return this
+}
+
+fun Calendar.composeHM(calendarDMY: Calendar): Calendar {
+    set(Calendar.HOUR_OF_DAY, calendarDMY.get(Calendar.HOUR_OF_DAY))
+    set(Calendar.MINUTE, calendarDMY.get(Calendar.MINUTE))
+    return this
+}
+
 object DateUtils {
 
     const val FORMAT_DATE = "yyyy-MM-dd"
@@ -27,7 +62,6 @@ object DateUtils {
 
     fun format(timeInMillis: Long, format: String) =
             SimpleDateFormat(format).format(Date(timeInMillis))
-
 
     fun composeDMY(calendar: Calendar, day: Int, month: Int, year: Int) =
             calendar.apply {

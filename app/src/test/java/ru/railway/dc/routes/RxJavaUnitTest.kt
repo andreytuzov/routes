@@ -22,7 +22,5 @@ class RxJavaUnitTest {
 
             it.onNext(1)
         })
-
-
     }
 }
