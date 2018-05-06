@@ -67,8 +67,8 @@ class ScheduleActivity : AppCompatActivity() {
                     if (!AppUtils.hasConnection())
                         ToastUtils.show(this, R.string.connection_msg_not_found)
                     supportActionBar!!.setTitle(R.string.not_found_title)
-                    findViewById(R.id.btnRepeatSearch).visibility = View.VISIBLE
-                    findViewById(R.id.searchLayer).visibility = View.GONE
+                    findViewById<View>(R.id.btnRepeatSearch).visibility = View.VISIBLE
+                    findViewById<View>(R.id.searchLayer).visibility = View.GONE
                 })
     }
 
@@ -77,7 +77,7 @@ class ScheduleActivity : AppCompatActivity() {
             R.id.btnRepeatSearch -> {
                 startSearchSchedule()
                 view.visibility = View.GONE
-                findViewById(R.id.searchLayer).visibility = View.VISIBLE
+                findViewById<View>(R.id.searchLayer).visibility = View.VISIBLE
             }
         }
     }

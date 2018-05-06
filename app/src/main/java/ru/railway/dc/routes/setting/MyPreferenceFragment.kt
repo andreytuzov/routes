@@ -64,6 +64,7 @@ class MyPreferenceFragment : PreferenceFragment(), Preference.OnPreferenceClickL
     }
 
     private fun updatePeriodTime(period: Int) {
+        App.pref.edit().putInt(getString(R.string.pref_name_period), period).apply()
         AppUtils.stopEventService()
         AppUtils.startEventService()
     }

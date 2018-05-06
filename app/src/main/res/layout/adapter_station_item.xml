@@ -1,35 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/imgContext"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:clickable="true"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_context_menu" />
+
+    <ImageView
+        android:id="@+id/imgStar"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@id/imgContext"
+        android:scaleType="centerInside"
+        android:src="@android:drawable/star_big_off" />
+
+
     <TextView
         android:id="@+id/tvName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/font.size.normal"
-        android:textColor="@color/primary_text"
         android:layout_marginLeft="8dp"
-        android:layout_marginRight="50dp"
         android:layout_marginTop="1dp"
-        />
+        android:layout_toLeftOf="@id/imgStar"
+        android:textColor="@color/primary_text"
+        android:textSize="@dimen/font.size.normal" />
+
     <TextView
         android:id="@+id/tvRegion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/tvName"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="50dp"
         android:layout_marginBottom="1dp"
-        />
-    <ImageView
-        android:id="@+id/imgStar"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_centerVertical="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="5dp"
-        android:src="@android:drawable/star_big_off"
-        />
+        android:layout_marginLeft="8dp"
+        android:layout_toLeftOf="@id/imgStar" />
+
 </RelativeLayout>

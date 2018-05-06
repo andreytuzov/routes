@@ -4,9 +4,11 @@ import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Handler
+import com.facebook.drawee.backends.pipeline.Fresco
 import org.apache.log4j.BasicConfigurator
-import ru.railway.dc.routes.database.AssetsDB
+import ru.railway.dc.routes.database.assets.search.AssetsDB
 import ru.railway.dc.routes.database.DB
+import ru.railway.dc.routes.database.assets.photos.AssetsPhotoDB
 import ru.railway.dc.routes.request.data.RequestData
 import ru.railway.dc.routes.tools.AppUtils
 import ru.railway.dc.routes.utils.TooltipManager
@@ -26,6 +28,8 @@ class App : Application() {
         AppUtils.startEventService()
         DB.configure(baseContext)
         AssetsDB.configure(baseContext)
+        AssetsPhotoDB.configure(baseContext)
+        Fresco.initialize(this)
 
         pref = getSharedPreferences(FILE_PREF, Context.MODE_PRIVATE)
         requestData = RequestData.newInstance(this)

@@ -2,8 +2,8 @@
     package="ru.railway.dc.routes">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:name=".App"
@@ -14,41 +14,46 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTask">
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".PrefActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
+        <activity android:name=".ImageActivity" />
         <activity android:name=".ScheduleActivity" />
-        <activity android:name=".FavouriteActivity"
+        <activity
+            android:name=".FavouriteActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".FavouritePreviewActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".StationActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".RegionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".FavouritePreviewActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".StationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".RegionActivity"
             android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="ru.railway.dc.routes.regionActivity"/>
-                <category android:name="android.intent.category.DEFAULT"/>
+                <action android:name="ru.railway.dc.routes.regionActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
 
         <!-- Автозагрузка -->
         <receiver android:name=".BootReceiver">
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
 
         <!-- Сервис для работы с уведомлениями -->
-        <service android:name=".EventService"/>
+        <service android:name=".EventService" />
     </application>
 
 </manifest>

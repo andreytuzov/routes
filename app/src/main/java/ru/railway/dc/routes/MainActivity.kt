@@ -296,13 +296,13 @@ class MainActivity : AppCompatActivity(), RequestData.OnChangeDataListener {
 
         if (!isFirst)
             tooltipManager.resetGroup(TooltipManager.MAIN_GROUP)
-        tooltipManager.addToolTip(findViewById(R.id.bStation), R.string.tooltip_main_content_bstation, Tooltip.Gravity.BOTTOM,
+        tooltipManager.addToolTip(findViewById<View>(R.id.bStation), R.string.tooltip_main_content_bstation, Tooltip.Gravity.BOTTOM,
                 TooltipManager.MAIN_GROUP, true, this)
-        tooltipManager.addToolTip(findViewById(R.id.eStation), R.string.tooltip_main_content_estation, Tooltip.Gravity.BOTTOM,
+        tooltipManager.addToolTip(findViewById<View>(R.id.eStation), R.string.tooltip_main_content_estation, Tooltip.Gravity.BOTTOM,
                 TooltipManager.MAIN_GROUP, true, this)
-        tooltipManager.addToolTip(findViewById(R.id.seekbar), R.string.tooltip_main_content_seekbar, Tooltip.Gravity.BOTTOM,
+        tooltipManager.addToolTip(findViewById<View>(R.id.seekbar), R.string.tooltip_main_content_seekbar, Tooltip.Gravity.BOTTOM,
                 TooltipManager.MAIN_GROUP, true, this)
-        tooltipManager.addToolTip(findViewById(R.id.bCalendarDate), R.string.tooltip_main_content_bcalendar, Tooltip.Gravity.BOTTOM,
+        tooltipManager.addToolTip(findViewById<View>(R.id.bCalendarDate), R.string.tooltip_main_content_bcalendar, Tooltip.Gravity.BOTTOM,
                 TooltipManager.MAIN_GROUP, true, this)
         tooltipManager.show(TooltipManager.MAIN_GROUP)
 
@@ -312,13 +312,13 @@ class MainActivity : AppCompatActivity(), RequestData.OnChangeDataListener {
                         TooltipManager.MAIN_BOTTOM_SHEET_ON_LISTENER_GROUP,
                         TooltipManager.MAIN_BOTTOM_SHEET_ON_ITEM_LISTENER_GROUP)
             }
-            tooltipManager.addToolTip(findViewById(R.id.fab), R.string.tooltip_main_content_search, Tooltip.Gravity.LEFT,
+            tooltipManager.addToolTip(findViewById<View>(R.id.fab), R.string.tooltip_main_content_search, Tooltip.Gravity.LEFT,
                     TooltipManager.MAIN_BOTTOM_SHEET_OFF_GROUP, true, this)
         } else {
             if (!isFirst)
                 tooltipManager.resetGroup(TooltipManager.MAIN_BOTTOM_SHEET_ON_GROUP,
                         TooltipManager.MAIN_BOTTOM_SHEET_ON_ITEM_GROUP)
-            tooltipManager.addToolTip(findViewById(R.id.additionalSearch), R.string.tooltip_main_content_search, Tooltip.Gravity.LEFT,
+            tooltipManager.addToolTip(findViewById<View>(R.id.additionalSearch), R.string.tooltip_main_content_search, Tooltip.Gravity.LEFT,
                     TooltipManager.MAIN_BOTTOM_SHEET_ON_GROUP, true, this)
         }
     }
@@ -341,6 +341,8 @@ class MainActivity : AppCompatActivity(), RequestData.OnChangeDataListener {
                 .withOnDrawerItemClickListener { _, position, _ ->
                     var intent: Intent? = null
                     when (position) {
+                        4 -> intent = Intent(this@MainActivity,
+                                ImageActivity::class.java)
                         3 -> intent = Intent(this@MainActivity,
                                 PrefActivity::class.java)
                         1 -> intent = Intent(this@MainActivity,
@@ -355,23 +357,31 @@ class MainActivity : AppCompatActivity(), RequestData.OnChangeDataListener {
     }
 
     private fun initialDrawerItems(): Array<IDrawerItem<*, *>> {
-        return arrayOf(PrimaryDrawerItem()
-                .withName("Маршруты")
-                .withIdentifier(1)
-                .withIcon(R.drawable.ic_drawer_favourite)
-                .withSelectedTextColor(resources.getColor(R.color.primary_text)), DividerDrawerItem(), PrimaryDrawerItem()
-                .withName("Настройки")
-                .withTextColor(resources.getColor(R.color.primary_text))
-                .withIdentifier(2)
-                .withIcon(R.drawable.ic_drawer_setting)
-                .withSelectable(false))
+        return arrayOf(
+                PrimaryDrawerItem()
+                        .withName("Маршруты")
+                        .withIdentifier(1)
+                        .withIcon(R.drawable.ic_drawer_favourite)
+                        .withSelectedTextColor(resources.getColor(R.color.primary_text)),
+                DividerDrawerItem(),
+                PrimaryDrawerItem()
+                        .withName("Настройки")
+                        .withTextColor(resources.getColor(R.color.primary_text))
+                        .withIdentifier(2)
+                        .withIcon(R.drawable.ic_drawer_setting)
+                        .withSelectable(false),
+                PrimaryDrawerItem()
+                        .withName(R.string.drawer_item_image)
+                        .withIdentifier(3)
+                        .withIcon(R.drawable.ic_station_search_image)
+                        .withSelectable(false))
     }
 
     private fun createAccountHeader(): AccountHeader {
         return AccountHeaderBuilder()
                 .withActivity(this)
                 .withHeaderBackground(R.drawable.drawer_background)
-                .withOnAccountHeaderSelectionViewClickListener { view, profile ->
+                .withOnAccountHeaderSelectionViewClickListener { _, _ ->
                     drawer!!.closeDrawer()
                     true
                 }
@@ -390,7 +400,7 @@ class MainActivity : AppCompatActivity(), RequestData.OnChangeDataListener {
 
     class ViewHolder(v: View) {
         // Дата
-        val bCalendarDate = v.findViewById(R.id.bCalendarDate)
+        val bCalendarDate = v.findViewById(R.id.bCalendarDate) as View
         val today = v.findViewById(R.id.today) as TextView
         val tomorrow = v.findViewById(R.id.tomorrow) as TextView
         val bDate = v.findViewById(R.id.bDate) as TextView
@@ -407,7 +417,7 @@ class MainActivity : AppCompatActivity(), RequestData.OnChangeDataListener {
         val additionalSearch = v.findViewById(R.id.additionalSearch) as ImageView
         val cardView = v.findViewById(R.id.cardView) as CardView
 
-        val bottomSheet = v.findViewById(R.id.bottom_sheet)
+        val bottomSheet = v.findViewById(R.id.bottom_sheet) as View
         val fab = v.findViewById(R.id.fab) as FloatingActionButton
         val fabAdd = v.findViewById(R.id.fabAdd) as FloatingActionButton
     }

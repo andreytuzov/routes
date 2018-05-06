@@ -4,11 +4,9 @@ import android.content.Context
 import android.content.Intent
 import android.database.Cursor
 import android.graphics.Point
-import android.graphics.Region
+import android.net.Uri
 import android.os.Bundle
-import android.support.v4.app.LoaderManager
-import android.support.v4.content.CursorLoader
-import android.support.v4.content.Loader
+import android.support.design.widget.Snackbar
 import android.support.v4.widget.SimpleCursorAdapter
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.SearchView
@@ -16,20 +14,23 @@ import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ImageView
-import android.widget.ListView
-import android.widget.TextView
+import android.widget.*
+import com.github.mrengineer13.snackbar.SnackBar
+import com.kennyc.bottomsheet.BottomSheet
+import com.kennyc.bottomsheet.BottomSheetListener
 import io.reactivex.Maybe
 import io.reactivex.MaybeOnSubscribe
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import it.sephiroth.android.library.tooltip.Tooltip
-import ru.railway.dc.routes.database.AssetsDB
-import ru.railway.dc.routes.database.assets.struct.CountryView
+import ru.railway.dc.routes.database.assets.photos.AssetsPhotoDB
+import ru.railway.dc.routes.database.assets.search.AssetsDB
+import ru.railway.dc.routes.database.assets.search.struct.CountryView
 import ru.railway.dc.routes.request.data.RequestData
 import ru.railway.dc.routes.request.model.Station
+import ru.railway.dc.routes.tools.AppUtils
 import ru.railway.dc.routes.utils.RUtils
+import ru.railway.dc.routes.utils.ToastUtils
 import ru.railway.dc.routes.utils.TooltipManager
 import java.util.HashMap
 
@@ -40,6 +41,7 @@ class StationActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
     }
 
     private var db: AssetsDB? = null
+    private lateinit var assetsPhotoDB: AssetsPhotoDB
     private lateinit var stationType: String
 
     private var idIndex: Int = 0
@@ -64,9 +66,20 @@ class StationActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
         lvMain.onItemClickListener = this
 
         // Инициализация loader для загрузки данных
-        db = AssetsDB()
+        db = AssetsDB(this)
         db!!.open()
+        assetsPhotoDB = AssetsPhotoDB(this)
         startSearchStation()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        assetsPhotoDB.open()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        assetsPhotoDB.close()
     }
 
     private fun loadStationObservable(pattern: String?) =
@@ -125,9 +138,51 @@ class StationActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
         return super.onCreateOptionsMenu(menu)
     }
 
+    private fun showContextMenu(stationName: String) {
+        BottomSheet.Builder(this, R.style.MyBottomSheetStyle)
+                .setSheet(R.menu.activity_station_context)
+                .setListener(object : BottomSheetListener {
+                    override fun onSheetShown(bottomSheet: BottomSheet) {}
+
+                    // Обработка нажатия кнопки
+                    override fun onSheetItemSelected(bottomSheet: BottomSheet, menuItem: MenuItem) {
+                        when (menuItem.itemId) {
+                            R.id.itemSearchMap -> {
+                                val station = assetsPhotoDB.getCoordinate(stationName)
+                                if (station != null) {
+                                    val uri = Uri.parse("geo:${station.latitude}, ${station.longitude}")
+                                    val intent = Intent(Intent.ACTION_VIEW, uri)
+                                    if (intent.resolveActivity(packageManager) != null)
+                                        startActivity(intent)
+                                } else
+                                    Toast.makeText(baseContext, R.string.place_map_msg_not_found, Toast.LENGTH_LONG).show()
+                            }
+                            R.id.itemSearchImage -> {
+                                val intent = Intent(this@StationActivity, ImageActivity::class.java)
+                                intent.putExtra(ImageActivity.PARAM_STATION_NAME, stationName)
+                                startActivity(intent)
+                            }
+
+                        }
+
+                    }
+
+                    override fun onSheetDismissed(bottomSheet: BottomSheet, i: Int) {}
+                })
+                .show()
+    }
+
     private fun createAdapter(context: Context): SimpleCursorAdapter {
         val adapter = AdapterHelper(this).adapter
+
         adapter.viewBinder = SimpleCursorAdapter.ViewBinder { view, cursor, columnIndex ->
+            if (view.id == R.id.imgContext) {
+                val stationName = cursor.getString(columnIndex)
+                view.setOnClickListener {
+                    showContextMenu(stationName)
+                }
+                return@ViewBinder true
+            }
             // Если картинка
             if (view.id == R.id.imgStar) {
                 // Adding tooltip for favourite button
@@ -141,12 +196,10 @@ class StationActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
 
                 // Получение данных
                 val id = cursor.getInt(idIndex)
-                val favourite: Int
-                if (mFavourite.containsKey(id)) {
-                    favourite = mFavourite[id]!!
-                } else {
-                    favourite = cursor.getInt(columnIndex)
-                }
+                val favourite = if (mFavourite.containsKey(id))
+                    mFavourite[id]!!
+                else
+                    cursor.getInt(columnIndex)
                 // Обновление картинки
                 val iv = view as ImageView
                 if (favourite == 1) {
@@ -221,17 +274,17 @@ class StationActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
         val name = tvName.text.toString()
         val region = tvRegion.text.toString()
 
-        val station = Station(id, name, region)
+        val station = Station(0, name, region)
 
         when (stationType) {
             RequestData.B_STATION -> {
-                App.requestData.bStation = Station(0, name, region)
+                App.requestData.bStation = station
             }
             RequestData.E_STATION -> {
-                App.requestData.eStation = Station(0, name, region)
+                App.requestData.eStation = station
             }
             RequestData.I_STATION -> {
-                App.requestData.addStation(Station(0, name, region))
+                App.requestData.addStation(station)
             }
         }
 
@@ -250,8 +303,8 @@ class StationActivity : AppCompatActivity(), AdapterView.OnItemClickListener {
     internal class AdapterHelper(private val context: Context) {
 
         private var layout = R.layout.adapter_station_item
-        private var from = arrayOf(CountryView.COLUMN_NAME, CountryView.COLUMN_REGION, CountryView.COLUMN_FAVOURITE)
-        private var to = intArrayOf(R.id.tvName, R.id.tvRegion, R.id.imgStar)
+        private var from = arrayOf(CountryView.COLUMN_NAME, CountryView.COLUMN_REGION, CountryView.COLUMN_FAVOURITE, CountryView.COLUMN_NAME)
+        private var to = intArrayOf(R.id.tvName, R.id.tvRegion, R.id.imgStar, R.id.imgContext)
 
         val adapter: SimpleCursorAdapter
             get() = SimpleCursorAdapter(context, layout,

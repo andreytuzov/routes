@@ -68,7 +68,7 @@ class IndexSearch(listRoute: ListRoute) {
         aISearch.loadStations(iStations)
 
         val list = ArrayList<ListIndexRoute>()
-        var listIRoute: ListIndexRoute? = null
+        var listIRoute: ListIndexRoute?
         do {
             listIRoute = aISearch.listIRoute
             if (listIRoute != null) {
@@ -82,21 +82,9 @@ class IndexSearch(listRoute: ListRoute) {
 
     }
 
-    private fun print() {
-        val str = StringBuilder()
-        // Станции
-        str.append("\niStations = ")
-        if (iStations != null) {
-            for (i in iStations!!) {
-                str.append(" " + i)
-            }
-        }
-        println(str.toString())
-    }
-
     // Алгоритм перебора
     operator fun next(): Boolean {
-        val N = iStations!!.size - 1
+        val N = iStations.size - 1
         val S = 1
         var i = N - 2
         val temp: Int

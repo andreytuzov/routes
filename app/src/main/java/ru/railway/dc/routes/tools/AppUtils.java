@@ -9,8 +9,6 @@ import android.net.NetworkInfo;
 import org.apache.log4j.Logger;
 
 import ru.railway.dc.routes.EventService;
-import ru.railway.dc.routes.database.AssetsDB;
-import ru.railway.dc.routes.database.DB;
 
 /**
  * Created by SQL on 13.01.2017.
@@ -58,12 +56,5 @@ public class AppUtils {
             }
         }
         return false;
-    }
-
-
-    public static void destroyAll() {
-        context = null;
-        DB.configure(null);
-        AssetsDB.configure(null);
     }
 }

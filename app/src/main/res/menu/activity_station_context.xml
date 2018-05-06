@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/itemSearchMap"
+        android:icon="@drawable/ic_station_search_map"
+        android:title="@string/context_menu_search_map" />
+    <item
+        android:id="@+id/itemSearchImage"
+        android:icon="@drawable/ic_station_search_image"
+        android:title="@string/context_menu_search_image" />
+</menu>

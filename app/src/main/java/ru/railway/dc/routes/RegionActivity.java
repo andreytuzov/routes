@@ -21,7 +21,7 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
-import ru.railway.dc.routes.database.AssetsDB;
+import ru.railway.dc.routes.database.assets.search.AssetsDB;
 
 /**
  * Created by SQL on 29.01.2017.
@@ -64,7 +64,7 @@ public class RegionActivity extends AppCompatActivity
         lvMain.setAdapter(adapter);
 
         // Инициализация loader для загрузки данных
-        db = new AssetsDB();
+        db = new AssetsDB(this);
         db.open();
         getSupportLoaderManager().initLoader(REGION_LOADER_ID, null, this);
         loader.forceLoad();

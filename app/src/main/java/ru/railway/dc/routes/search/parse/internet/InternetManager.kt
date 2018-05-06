@@ -43,7 +43,6 @@ class InternetManager() {
     private fun getListQuery(isCash: Boolean): List<QueryInternet> {
         val listQuery = ArrayList<QueryInternet>()
 
-        val format = SimpleDateFormat(DateUtils.FORMAT_DATE)
         var date: String? = null
 
         val sEDateTime = DateUtils.format(eDateTime, DateUtils.FORMAT_DATE)
