@@ -20,7 +20,7 @@
     <style name="MyBottomSheetStyle" parent="@style/BottomSheet"></style>
 
     <style name="TooltipLayoutStyle" parent="ToolTipLayoutDefaultStyle">
-        <item name="ttlm_backgroundColor">#AAAAAAAA</item>
+        <item name="ttlm_backgroundColor">#AA091644</item>
         <item name="ttlm_elevation">10dp</item>
         <item name="ttlm_overlayStyle">@style/TooltipOverlayStyle</item>
         <item name="android:textAppearance">@style/TextAppearanceStyle</item>
@@ -34,7 +34,7 @@
     </style>
 
     <style name="TextAppearanceStyle" parent="TextAppearance.AppCompat.Medium">
-        <item name="android:textColor">@color/primary_text</item>
+        <item name="android:textColor">@android:color/white</item>
     </style>
 
     <style name="snackBar" parent="@style/SnackBar">
