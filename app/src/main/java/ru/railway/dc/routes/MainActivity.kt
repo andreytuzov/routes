@@ -24,8 +24,6 @@ import com.mikepenz.materialdrawer.model.DividerDrawerItem
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 import it.sephiroth.android.library.tooltip.Tooltip
-import ru.railway.dc.routes.database.utils.CashDetailTableUtils
-import ru.railway.dc.routes.database.utils.CashTableUtils
 import ru.railway.dc.routes.request.data.RequestData
 import ru.railway.dc.routes.request.fragment.dialog.DateFragment
 import ru.railway.dc.routes.setting.MyPreferenceFragment

@@ -3,13 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:res-auto="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/itemAddNotification"
-        android:title="Добавить уведомление"
-        android:icon="@android:drawable/ic_media_play"
-        android:checkable="true"
-        android:checked="true"
-        res-auto:showAsAction="always"/>
-    <item
         android:id="@+id/itemRemove"
         android:title="Удалить"
         android:icon="@android:drawable/ic_menu_delete"

@@ -36,10 +36,11 @@ public class AppUtils {
     }
 
     public static void startEventService() {
-        if (!isEventServiceRunning()) {
-            logger.debug("startEventService");
-            context.startService(new Intent(context, EventService.class));
-        }
+        // Not used
+//        if (!isEventServiceRunning()) {
+//            logger.debug("startEventService");
+//            context.startService(new Intent(context, EventService.class));
+//        }
     };
 
     public static void stopEventService() {

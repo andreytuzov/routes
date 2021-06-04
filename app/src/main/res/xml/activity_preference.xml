@@ -28,14 +28,6 @@
 
     <PreferenceCategory
         android:title="Сохраненные маршруты">
-        <EditTextPreference
-            android:key="@string/pref_name_period"
-            android:defaultValue="@string/pref_value_period"
-            android:inputType="numberDecimal"
-            android:title="Время обновления"
-            android:summary="Указывается в секундах"
-            android:icon="@drawable/ic_preference_period">
-        </EditTextPreference>
         <Preference
             android:key="@string/pref.name.clearevent"
             android:title="@string/menu_item_clear_data"

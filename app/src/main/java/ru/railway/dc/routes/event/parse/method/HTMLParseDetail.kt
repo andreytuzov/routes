@@ -136,13 +136,13 @@ class HTMLParseDetail : IParseDetail {
     }
 
     companion object {
-        private const val URL_DETAIL = "http://rasp.rw.by%1\$s"
-        private const val USER_AGENT = "Mozilla/5.0 (Windows; U; WindowsNT 5.1; en-US; rv1.8.1.6) Gecko/20070725 Firefox/2.0.0.6"
+        private const val URL_DETAIL = "http://pass.rw.by%1\$s"
+        private const val USER_AGENT = "Mozilla/5.0 (Windows NT 6.1; Trident/7.0; rv:11.0) like Gecko"
 
         // Tags for parsing
-        private const val TAG_START_TIME = "td.train_item.train_start"
-        private const val TAG_END_TIME = "td.train_item.train_end"
-        private const val TAG_STATION = "a.train_text"
+        private const val TAG_START_TIME = "td.departure"
+        private const val TAG_END_TIME = "td.arrival > span"
+        private const val TAG_STATION = "a.train-table__link"
 
         // Max time connection
         private const val TIMEOUT = 40000

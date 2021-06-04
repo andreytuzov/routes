@@ -16,11 +16,12 @@
         <item name="colorControlHighlight">@color/primary_light</item>
         <!--<item name="actionModeBackground">@color/colorActionMode</item>-->
     </style>
-    <style name="MyBottomSheetStyle" parent="@style/BottomSheet">
-    </style>
+
+    <style name="MyBottomSheetStyle" parent="@style/BottomSheet"></style>
 
     <style name="TooltipLayoutStyle" parent="ToolTipLayoutDefaultStyle">
-        <item name="ttlm_backgroundColor">#EE0288D1</item>
+        <item name="ttlm_backgroundColor">#AAAAAAAA</item>
+        <item name="ttlm_elevation">10dp</item>
         <item name="ttlm_overlayStyle">@style/TooltipOverlayStyle</item>
         <item name="android:textAppearance">@style/TextAppearanceStyle</item>
     </style>

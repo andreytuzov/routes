@@ -82,10 +82,11 @@ public class FavouritePreviewActivity extends AppCompatActivity
             }
 
             private void removeNotification(int id) {
-                EventTableUtils.update(id, false, null);
-                ManagerEvent.remove(id, ManagerEvent.PREF_NOTIFICATION);
-                NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-                nm.cancel(id);
+                // Not used
+//                EventTableUtils.update(id, false, null);
+//                ManagerEvent.remove(id, ManagerEvent.PREF_NOTIFICATION);
+//                NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+//                nm.cancel(id);
             }
 
             @Override

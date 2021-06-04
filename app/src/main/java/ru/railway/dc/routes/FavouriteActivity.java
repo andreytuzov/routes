@@ -66,12 +66,13 @@ public class FavouriteActivity extends AppCompatActivity
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        EventTableUtils.EventID eventID = EventTableUtils.loadEventID(this.eventID);
-        if (eventID.isNotification()) {
-            MenuItem menuItem = menu.getItem(0);
-            menuItem.setChecked(false);
-            menuItem.setIcon(android.R.drawable.ic_media_pause);
-        }
+        // Not used
+//        EventTableUtils.EventID eventID = EventTableUtils.loadEventID(this.eventID);
+//        if (eventID.isNotification()) {
+//            MenuItem menuItem = menu.getItem(0);
+//            menuItem.setChecked(false);
+//            menuItem.setIcon(android.R.drawable.ic_media_pause);
+//        }
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -92,21 +93,22 @@ public class FavouriteActivity extends AppCompatActivity
                         MainActivity.class));
                 finish();
                 break;
-            case R.id.itemAddNotification:
-                boolean isChecked = item.isChecked();
-                if (isChecked) {
-                    EventTableUtils.update(eventID, true, null);
-                    item.setChecked(!item.isChecked());
-                    // Добавляем уведомления
-                    ManagerEventUtils.addNotification(this, eventID);
-                } else {
-                    removeNotification(eventID);
-                }
-
-                item.setChecked(!isChecked);
-                item.setIcon(item.isChecked() ? android.R.drawable.ic_media_play :
-                        android.R.drawable.ic_media_pause);
-                break;
+                // Not used
+//            case R.id.itemAddNotification:
+//                boolean isChecked = item.isChecked();
+//                if (isChecked) {
+//                    EventTableUtils.update(eventID, true, null);
+//                    item.setChecked(!item.isChecked());
+//                    // Добавляем уведомления
+//                    ManagerEventUtils.addNotification(this, eventID);
+//                } else {
+//                    removeNotification(eventID);
+//                }
+//
+//                item.setChecked(!isChecked);
+//                item.setIcon(item.isChecked() ? android.R.drawable.ic_media_play :
+//                        android.R.drawable.ic_media_pause);
+//                break;
         }
         return true;
     }

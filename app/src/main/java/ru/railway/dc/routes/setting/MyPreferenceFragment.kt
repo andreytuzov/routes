@@ -27,7 +27,6 @@ class MyPreferenceFragment : PreferenceFragment(), Preference.OnPreferenceClickL
 
         findPreference(getString(R.string.pref_name_clearcash)).onPreferenceClickListener = this
         findPreference(getString(R.string.pref_name_clearevent)).onPreferenceClickListener = this
-        findPreference(getString(R.string.pref_name_period)).onPreferenceChangeListener = this
         findPreference(getString(R.string.pref_name_stationtime)).onPreferenceChangeListener = this
     }
 
