@@ -69,7 +69,7 @@ class RequestData {
     var stationMap = mutableMapOf<Station, Int>()
         private set
 
-    fun addStation(station: Station, duration: Int = DEFAULT_DURATION) {
+    fun addStation(station: Station, duration: Int = this.duration) {
         stationMap.put(station, duration)
         notification(I_STATION)
     }

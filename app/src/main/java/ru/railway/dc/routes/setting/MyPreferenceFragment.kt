@@ -7,6 +7,7 @@ import android.preference.Preference
 import android.preference.PreferenceFragment
 import android.widget.Toast
 import ru.railway.dc.routes.App
+import ru.railway.dc.routes.Constant
 import ru.railway.dc.routes.R
 import ru.railway.dc.routes.database.utils.CashDetailTableUtils
 import ru.railway.dc.routes.database.utils.CashTableUtils
@@ -60,6 +61,7 @@ class MyPreferenceFragment : PreferenceFragment(), Preference.OnPreferenceClickL
 
     private fun updateStationTime(stationTime: Int) {
         App.requestData.duration = stationTime
+        App.pref.edit().putInt(Constant.KEY_PREF_DURATION, stationTime).apply()
     }
 
     private fun updatePeriodTime(period: Int) {

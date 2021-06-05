@@ -12,7 +12,7 @@
             </intent>
         </PreferenceScreen>
         <EditTextPreference
-            android:key="@string/pref.name.stationtime"
+            android:key="@string/pref_name_stationtime"
             android:defaultValue="@string/pref.value.stationtime"
             android:inputType="numberDecimal"
             android:title="Время на станции (в мин.)"
